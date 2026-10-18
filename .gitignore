@@ -1,0 +1,4 @@
+/target/
+/assets/*.nes
+/analysis/*.bin
+/analysis/*.ppm

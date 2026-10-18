@@ -1,0 +1,8 @@
+{
+  "sha256": "97e0e7d84ce6cca3fd3ec5eabb3fa00252de54f1354156ca2b95b95a39237373",
+  "header": "4e45531a080021000000000000000000",
+  "prg_size": 131072,
+  "chr_size": 0,
+  "mapper": 2,
+  "vectors": "92c23dc2eac2"
+}

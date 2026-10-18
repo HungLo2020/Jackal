@@ -1,0 +1,37 @@
+Native verification, 2026-10-18
+
+Source: SHA-256 pinned Jackal USA image identified in rom.json.
+REA archive Evidence: ev_ba70b186b491950e784ca0167e890b7ec704d56f0e698671b20e7cb0bfcbb3b8.
+Independent static findings: findings.txt. No successful REA native decompilation.
+
+Build: cargo run --offline -- --headless 1200 --screenshot analysis/gameplay.ppm
+Original briefing and active stage-1 framebuffer inspected visually.
+79,090 candidate native entry points compiled; not a measured code-only count.
+
+Tests: 12 passed, including 4 audio, 4 video, and 4 game tests.
+Final strengthened game tests: all 4 passed after adding final ending-screen,
+next-loop, and continue-restart assertions. Audio/video sources unchanged.
+
+Game verification:
+- Original title Select/Start enters two-player gameplay; both players move.
+- All 6 original stage initialization paths reach active gameplay and run 1,800
+  frames of seeded directional/fire input per stage.
+- Original map/event streams reach every boss area using test-only invulnerability
+  and forced scrolling; each encounter then executes 600 frames.
+- Test-only boss-victory injection exercises all stage-clear transitions.
+- Final ending advances to substate 10 (final screen), Start enters a new loop.
+- Losing all lives reaches original game-over and continue screens; Start restores
+  lives and returns to gameplay.
+- Audio includes the two original DMC samples (fixed-bank source bytes).
+- Video checks include mirroring, palette aliases, buffered reads, sprite priority,
+  flipping, 8x16 sprites, DMA wrapping, scrolling, and story split scrolling.
+
+Limits:
+These tests execute compiled ROM logic; they are not a human full playthrough,
+an original-hardware differential comparison, or proof every possible branch ran.
+The host's frame-composed graphics and frame-timed audio approximate hardware.
+Initial interactive window attempt failed with XOpenDisplay failed in the sandbox.
+After display access was enabled, a live X11 window was verified with WM_CLASS
+jackal-native/JackalNative and _NET_WM_WINDOW_OPACITY=4294967295 (fully opaque).
+The user confirmed the game runs and the opacity fix works. Audio-device playback
+has not been independently checked.

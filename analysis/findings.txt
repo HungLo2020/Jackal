@@ -1,0 +1,129 @@
+Jackal native reconstruction findings (2026-10-18)
+Evidence origin: independent static 6502 decoding of assets/jackal.nes, not REA output.
+ROM SHA256 97e0e7d84ce6cca3fd3ec5eabb3fa00252de54f1354156ca2b95b95a39237373.
+Mapper 2, 8 x 16KiB PRG banks, no CHR-ROM. Bank 7 fixed at C000; 0..6 switch at 8000.
+
+Frame scheduling (high confidence static control flow):
+Reset C23D waits on bit7 PPUSTATUS twice (C23F/C244), clears RAM, initializes APU/PPU,
+sends sound command 59 to bank0:8687, and ends in JMP C28F forever.
+NMI C292 is entire frame driver. zp1B nonzero means a nested frame: only C30D scroll
+and C390 audio run. Normal frame performs:
+  sprite DMA from page02; DA07 VRAM command buffer drain (0770)
+  PPUMASK from FE with delayed enable counter zp20
+  C30D scroll; INC zp1B; C390 audio; C949 input
+  select bank1; 8008 sprites; C508 state logic; D250; clear zp1B; RTI
+IRQ vector is the RTI instruction C2EA.
+Native frame scheduling can run reset to C28F once, then call NMI once per frame.
+Vblank busy waits also occur C3C4 and D0E0 during forced graphics updates within NMI.
+All PPUSTATUS absolute reads found in fixed bank:
+C23F C244 C298 C29F C31C C340 C35A C3C4 C411 C8E4 D0E0 D0F4 DA2F.
+No sprite0-hit wait identified; exact 2C0220 bytes in bank6:914C are within data.
+
+Bank switching:
+All banks begin 00 01 02 03 04 05 06 07 identity table.
+C3B5 stores Y in zp27. C3B7 reloads Y from zp27. C3B9 reads 8000,Y and writes same
+value back twice to 8000,Y; mapper bus-conflict safe switch.
+C390 temporarily switches bank0 and calls 8008 audio tick then restores zp27 bank.
+C369/C36B queues sound in bank0:8687 with guard RAM076C.
+Graphics loader C3C3 dynamically switches banks via X and identity table at C3F8.
+
+State and input:
+C508 increments frame counter zp1A and dispatches via state zp18.
+Main state table C518: C52C C53E C561 C673 C6A9 DA73 C6B3 C6FF C844 C894.
+C949 reads both controllers twice (C96A) to reject mismatched reads.
+Held buttons zpF1/F2; newly pressed zpF5/F6. Serial bits are accumulated leftwards,
+so A=80 B=40 Select=20 Start=10 Up=08 Down=04 Left=02 Right=01.
+When not independent two-player mode, controller2 inputs are merged into player1.
+C9B6 handles title Start/Select; zp22 selects 1/2 players.
+
+Generic inline dispatch:
+CA96 takes A=index, preserves X/Y into zp03/02, doubles index, then pops JSR return
+address into zp00/01. Reads little-endian target at return+1+2*index. Restores X/Y;
+CAB1 JMP (0000). Caller return address is deliberately consumed and table follows
+JSR CA96 directly. Static translation must include these indirect table targets.
+Bank1 sprite handler also indirectly dispatches via tables 81F7 and 8B5C indexed
+by doubled object id at RAM0500+X. Sprite slots count down X=31..0.
+
+Rendering:
+Scroll shadow FD horizontal, FC vertical; FF control, FE mask.
+C30D writes FD/FC to 2005 and FF to 2000. RAM076D/076E implement horizontal shake.
+C8DA uses timed delay then C8E4 sets horizontal split scroll 256-RAM0050, vertical0,
+and ORs nametable1 into control. A frame renderer that only keeps last register
+values loses this intentional split-screen behavior.
+
+Stage testing and transitions (static):
+Stage index zp30 ranges 0..5, increment/wrap at C82F-C839. Main state5 is gameplay.
+Gameplay substate zp2C table at DA78:
+  0 DB7D first-stage intro delay
+  1 DBBA stage reset/setup: D0D4 clear display, CACA clear object RAM,
+    CAEA clear zp35..4F, C3C3 loads graphics with A=stage, DC81 updates HUD
+  2 DBF4 builds initial map over successive frames; map stage bank table DBEE is
+    04 04 05 04 04 05. Once zp43 != 0, enters helicopter intro for stage0 first run,
+    otherwise DC37 establishes both player slots and advances to substate3.
+  3 DCA0 active gameplay
+  4..10 helicopter dropoff animation DA8E DAA0 DAAE DACA DAEF DB3C DB58.
+Test-only stage selection: after normal new-game initialization, set zp30=0..5,
+zp18=5, zp2C=1; continue frames through original routines. Set zp34=1 to skip the
+first stage helicopter arrival (zp34 is also continue count, not a normal cheat).
+Player lives zp31/32 initialized to5/0 for one player or5/5 for two players at CA19.
+Player slots are 10/11 hex, with x RAM05B0/05B1 and y RAM0570/0571.
+New-game full init C9F9 clears zp23..DF and RAM0300..06FF, sets lives and mode.
+Main state3 C673 runs 'player count' lead-in, then C9F9 initialization; state4 C6A9
+clears objects and sets substate0; state5 begins intro/gameplay.
+Main state6 game-over, state7 stage-end helicopter/interstitial, state8 continue
+menu (up to3 continues from zp34), state9 final ending via bank0:B0A0.
+No RAM execution identified in decoded control paths. A bounded fixed-bank graph
+walk from reset/NMI with inferred inline tables found no direct RAM transfers;
+its table bounds are heuristic and include data false positives, so this is not
+proof of absence. No unofficial instructions established on actual game paths.
+
+Boss and completion test hooks (second pass):
+F081 is the scripted spawn interpreter. zp43 world page, zp44 pixel (0..EF), zp36
+cursor within page event data. Fixed F1E0 holds bank6 per-stage pointer tables at
+85F4 8941 9064 A151 AA5C B128. Commands EF=end page, F0+pixel=begin forced scroll
+(set3C=1), F1/F2 palette/display commands, ordinary triples pixel/x/type spawn.
+For stages0..4 the final page is11, and terminal boss spawn is pixelEE:
+  stage0 bank6:86F1 script F1 22 F2 62 F0 83 EE 00 89 EF (type09)
+  stage1 bank6:8A9E script 64 2C 85 64 54 85 F0 83 EE 00 A0 EF (type20)
+  stage2 bank6:920A script F2 63 64 54 07 65 2C 07 F0 83 ED A0 07 EE 00 A5 EF (type25)
+  stage3 bank6:A27C script 21 40 07 F2 43 64 2C 07 64 50 07 F0 83 EE 00 C0 EF (type40)
+  stage4 bank6:AC08 has F2 43, preceding soldiers and turrets, F0 83, EE 00 97 EF (type17)
+Stage5 final page12 B2DE: F2 43, troops at70, 80 00 C9, F0 93, EF.
+Stage5 page13 B2FE: 0C 00 43, 0E 00 C5, EF. Final base includes spawned object4B.
+Boss initialization clears3C (auto scroll), sets3A (scroll lock) and sets3B remaining
+boss components. Examples bank6:878A->3B=4,8FA3->3B=4,A7BF->3B=1,AEFD->3B=5.
+
+Coherent test acceleration (inference to validate dynamically): after stage init,
+set3C=1 once, keep lives/invulnerability sufficient. Original DD11 increments44 by
+one each frame and rolls43 atF0; all map streaming and event cursor updates remain
+intact. Boss handlers naturally stop forced scrolling. This requires ~2600frames.
+Directly jumping43/44 risks skipping required event and tile-stream state.
+
+Stage victory original trigger: active gameplay DCBF checks3B==0. With3B=0, zp42
+increments2 every frame. Overflow sets18=7 and19=0 (DCF5). Thus test-only 3B=0,42=FE
+exercises original stage-clear transition from a coherent boss encounter. State7
+initializes interstitial through C719, eventually C82F increments stage and starts
+state5/substate1. For stage5, C6FF redirects state7 immediately to state9 (ending).
+Gameover original trigger: with active gameplay and pause25=0, lives31=32=0 sets
+state18=6,19=0. State6 initializes screen and then state8 continue if34<3. Otherwise
+waits before title. State8 Start at zpF5 bit10 increments34 and reinitializes lives,
+then restarts same stage through state5/substate1. Select flips menu cursor zp50.
+Ending state9 calls bank0:B0A0 and uses substate19. Substate0 B0BD initializes scene,
+then substate1 B0F4 centers scroll and searches entity slots for type4B at B11D.
+Forcing ending from arbitrary early gameplay lacks this required scenery object;
+prefer original stage5 boss-defeat transition with final base entities loaded.
+
+Story-screen split scroll:
+C8CB used by story states (C5A3/C5DE/C656), increments zp50 by12 until >=F8 and
+sets FD=50. Then C8DA waits X=34,Y=08 using INX/BNE and DEY/BNE. Delay loop alone is
+10011 CPU cycles (~88 NTSC scanlines); writes at C8E4 use horizontal=-50, vertical0,
+control|1. Actual split row is current frame CPU position plus this delay, not a
+constant row independent of NMI VRAM/audio/sprite work. A timing-tracking renderer
+can record scanline at C8EE write; otherwise about88 rows after entering C8DA is
+an estimate, with explicit uncertainty. At50=F8 the two regions use scrollF8/08.
+
+Confirmed player invulnerability timer: zp52/53. Player respawn E966 sets A0 into
+52,X; normal player state E9E2 decrements timer once/frame and cycles sprite palette.
+Collision E5B7 reads52,Y and skips setting player state0530,Y=2 (death) if nonzero.
+Test-only refreshing52=53=FF each frame preserves normal movement/shooting while
+blocking these damage collisions. Does not claim to block unexamined terrain deaths.
