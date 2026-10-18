@@ -35,3 +35,11 @@ After display access was enabled, a live X11 window was verified with WM_CLASS
 jackal-native/JackalNative and _NET_WM_WINDOW_OPACITY=4294967295 (fully opaque).
 The user confirmed the game runs and the opacity fix works. Audio-device playback
 has not been independently checked.
+
+Self-contained repository update:
+The generated Rust and 128 KiB banked data are now checked in at
+ generated/native_game.rs
+ assets/game-data.bin
+Cargo compiles/includes these directly; build.rs has been removed. The original
+ROM and Python are no longer dependencies of the build or executable.
+Clean-copy verification without the ROM or old target directory: all 12 tests pass.

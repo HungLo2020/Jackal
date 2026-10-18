@@ -1,13 +1,14 @@
 # Jackal — native Rust port
 
-After supplying the ROM as described below, run from this directory:
+Clone the repository and run from its directory:
 
 ```sh
 cargo run
 ```
 
-The supplied USA ROM is translated into Rust at build time and compiled into the
-executable. No external emulator or runtime CPU opcode interpreter is used.
+The translated Rust source and extracted game data are included in the repository.
+No ROM file, Python installation, external emulator, or runtime CPU opcode
+interpreter is required to build or play.
 This is an **ahead-of-time native recompilation**, preserving the original game
 logic and memory layout, rather than a hand-rewritten high-level game engine.
 Rust implements the window, input, tile/sprite rendering, and sound synthesis.
@@ -34,24 +35,28 @@ disables audio. With no audio device, the game continues silently.
 
 ## Build requirements
 
-Rust/Cargo, Python 3, a desktop display, and the platform libraries needed by
-minifb and rodio (on Linux: X11/Wayland and ALSA development libraries). The
-dependencies were available locally and this project builds with `--offline`
-in the development environment. A normal first build elsewhere may download them.
+Rust/Cargo, a desktop display, and the platform libraries needed by minifb and
+rodio (on Linux: X11/Wayland and ALSA development libraries). A first build may
+download Rust dependencies; game assets are already included.
 
-`assets/jackal.nes` is the local extraction of `~/Downloads/Jackal.zip`.
-The build checks SHA-256
-`97e0e7d84ce6cca3fd3ec5eabb3fa00252de54f1354156ca2b95b95a39237373`.
-ROM and intermediate binary files are ignored by Git. Preserve your local asset
-when moving the project; no ROM is downloaded by the build.
+## Included assets and native code
 
-For a fresh clone, place your matching USA ROM at `assets/jackal.nes`:
+- `assets/game-data.bin`: 128 KiB of original banked data, including compressed
+  graphics, maps, animation/event tables, music sequences, and sampled effects.
+- `generated/native_game.rs`: the pretranslated Rust game logic, compiled directly
+  by Cargo. No ROM translation happens during a normal build.
+- `generated/translation.json`: original source identity, candidate entry count,
+  and SHA-256 hashes of the included data and generated Rust.
 
-```sh
-mkdir -p assets
-cp "/path/to/Jackal (USA).nes" assets/jackal.nes
-cargo run
-```
+The data keeps its original bank layout because game routines address tables by
+bank and offset. Code and data were interleaved in the original program, so this
+conservative data image also retains instruction bytes; these bytes are not
+executed by a CPU interpreter. This is a banked data extraction, not separate PNG
+and WAV exports. The compiled Rust routines decode graphics and drive the native
+sound synthesizer. Both code and data are embedded in the executable.
+
+The original `assets/jackal.nes`, intermediate analysis binaries, and build outputs
+remain ignored by Git. They are not build or runtime dependencies.
 
 ## Reconstruction and evidence
 
@@ -62,15 +67,16 @@ cargo run
   bank switching, state tables, stage/boss events, and test hooks.
 - `tools/disassemble.py`: independent bank disassembly, e.g.
   `python3 tools/disassemble.py 7 c292 c2f4`.
-- `tools/compile_game.py`: build-time lowering, adapted from the local MicroMages
-  reconstruction's instruction-lowering patterns and opcode facts.
+- `tools/compile_game.py`: optional historical ROM-to-Rust lowering tool, adapted
+  from the local MicroMages reconstruction. Only regenerating the translation
+  requires Python and the original matching ROM; Cargo does not invoke it.
 - `src/game.rs`: recovered frame scheduler, banked data access, and state helpers.
 - `src/video.rs`: software graphics with story-scene split scrolling.
 - `src/audio.rs`: pulse, triangle, noise, and original DMC samples.
 - `src/window.rs`: desktop application identity and full-opacity X11 window hints.
 
-Generated Rust and a translation manifest are under
-`target/debug/build/jackal-native-*/out/`. The compiler lowers every legal-opcode
+Checked-in Rust and its translation manifest are under `generated/`. The original
+translation pass lowered every legal-opcode
 offset in each bank as a possible entry, including data that is never executed.
 This conservative coverage handles the game's many computed dispatch tables;
 the candidate count is **not** a count of recovered functions or proven code.

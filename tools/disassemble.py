@@ -2,7 +2,7 @@ import json,sys
 from pathlib import Path
 OPS=json.loads(Path(__file__).with_name('instructions.json').read_text())
 SIZES={'imp':1,'acc':1,'imm':2,'zpg':2,'zpx':2,'zpy':2,'inx':2,'iny':2,'rel':2,'abs':3,'abx':3,'aby':3,'ind':3}
-rom=Path('assets/jackal.nes').read_bytes()[16:]
+rom=Path('assets/game-data.bin').read_bytes()
 bank=int(sys.argv[1],0) if len(sys.argv)>1 else 7
 base=0xc000 if bank==7 else 0x8000
 start=int(sys.argv[2],16) if len(sys.argv)>2 else base

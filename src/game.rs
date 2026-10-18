@@ -1,9 +1,9 @@
 use crate::{audio::Audio, video::Video};
 
 mod translated {
-    include!(concat!(env!("OUT_DIR"), "/native_game.rs"));
+    include!("../generated/native_game.rs");
 }
-const PRG: &[u8] = include_bytes!(concat!(env!("OUT_DIR"), "/prg.bin"));
+const PRG: &[u8] = include_bytes!("../assets/game-data.bin");
 
 pub struct Game {
     pub memory: [u8; 2048],
