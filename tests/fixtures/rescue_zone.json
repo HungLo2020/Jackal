@@ -1,0 +1,125 @@
+[
+  {
+    "close": null,
+    "end": 3200,
+    "spawns": [],
+    "stage": 0
+  },
+  {
+    "close": null,
+    "end": 3200,
+    "spawns": [
+      {
+        "palette": 1,
+        "source_type": 59,
+        "tick": 512,
+        "x": 40,
+        "y": 0
+      }
+    ],
+    "stage": 1
+  },
+  {
+    "close": null,
+    "end": 3200,
+    "spawns": [],
+    "stage": 2
+  },
+  {
+    "close": null,
+    "end": 3200,
+    "spawns": [],
+    "stage": 3
+  },
+  {
+    "close": null,
+    "end": 3200,
+    "spawns": [
+      {
+        "palette": 1,
+        "source_type": 59,
+        "tick": 512,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 1,
+        "source_type": 59,
+        "tick": 1024,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 1,
+        "source_type": 59,
+        "tick": 1536,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 1,
+        "source_type": 59,
+        "tick": 2048,
+        "x": 40,
+        "y": 0
+      }
+    ],
+    "stage": 4
+  },
+  {
+    "close": null,
+    "end": 3200,
+    "spawns": [
+      {
+        "palette": 2,
+        "source_type": 67,
+        "tick": 512,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 2,
+        "source_type": 67,
+        "tick": 1024,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 2,
+        "source_type": 67,
+        "tick": 1536,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 2,
+        "source_type": 67,
+        "tick": 2048,
+        "x": 40,
+        "y": 0
+      },
+      {
+        "palette": 2,
+        "source_type": 67,
+        "tick": 2560,
+        "x": 40,
+        "y": 0
+      }
+    ],
+    "stage": 5
+  },
+  {
+    "close": 530,
+    "end": 531,
+    "spawns": [
+      {
+        "palette": 2,
+        "source_type": 67,
+        "tick": 512,
+        "x": 40,
+        "y": 0
+      }
+    ],
+    "stage": 5
+  }
+]

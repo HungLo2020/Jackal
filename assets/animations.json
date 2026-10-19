@@ -1,0 +1,59 @@
+{
+  "jeep_north": {
+    "frames": [
+      1
+    ],
+    "frame_ticks": 8
+  },
+  "jeep_northeast": {
+    "frames": [
+      3
+    ],
+    "frame_ticks": 8
+  },
+  "jeep_east": {
+    "frames": [
+      5
+    ],
+    "frame_ticks": 8
+  },
+  "prisoner": {
+    "frames": [
+      37,
+      38
+    ],
+    "frame_ticks": 12
+  },
+  "pickup": {
+    "frames": [
+      46
+    ],
+    "frame_ticks": 8
+  },
+  "gun_bullet": {
+    "frames": [
+      16
+    ],
+    "frame_ticks": 1
+  },
+  "grenade": {
+    "frames": [
+      7
+    ],
+    "frame_ticks": 1
+  },
+  "infantry_death": {
+    "frames": [
+      24
+    ],
+    "frame_ticks": 32
+  },
+  "jeep_death": {
+    "frames": [
+      25,
+      26,
+      27
+    ],
+    "frame_ticks": 6
+  }
+}

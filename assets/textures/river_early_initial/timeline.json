@@ -1,0 +1,160 @@
+{
+  "frames": [
+    {
+      "boss_alive": 255,
+      "command": 8,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 11,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 0,
+      "upload": 1
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 12,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 1,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 13,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 2,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 14,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 3,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 15,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 4,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 16,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 5,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 17,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 6,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 18,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 7,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 19,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 8,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 20,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 9,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 21,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 10,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 22,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 0,
+      "tick": 11,
+      "upload": 0
+    }
+  ],
+  "phases": [
+    {
+      "sprites": "textures/river_early_initial/frame_000_sprites.png",
+      "tick_offset": 0,
+      "tiles": "textures/river_early_initial/frame_000_tiles.png"
+    },
+    {
+      "sprites": "textures/river_early_initial/frame_002_sprites.png",
+      "tick_offset": 2,
+      "tiles": "textures/river_early_initial/frame_002_tiles.png"
+    }
+  ]
+}

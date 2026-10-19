@@ -2,3 +2,4 @@
 /assets/*.nes
 /analysis/*.bin
 /analysis/*.ppm
+__pycache__/

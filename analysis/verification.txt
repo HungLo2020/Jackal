@@ -1,45 +1,64 @@
-Native verification, 2026-10-18
+Native rewrite verification (2026-10-18)
 
-Source: SHA-256 pinned Jackal USA image identified in rom.json.
-REA archive Evidence: ev_ba70b186b491950e784ca0167e890b7ec704d56f0e698671b20e7cb0bfcbb3b8.
-Independent static findings: findings.txt. No successful REA native decompilation.
+The current default executable uses ordinary Rust systems, PNG/JSON maps and art,
+and PCM WAV playback. Legacy generated/native_game.rs, assets/game-data.bin and
+register-based game/video/audio runtime code have been removed from the working
+tree. Optional reference exporters retrieve the old revision only into temp dirs.
 
-Build: cargo run --offline -- --headless 1200 --screenshot analysis/gameplay.ppm
-Original briefing and active stage-1 framebuffer inspected visually.
-79,090 candidate native entry points compiled; not a measured code-only count.
+Checks: cargo fmt; cargo clippy --all-targets -D warnings; cargo test; native
+headless execution with PNG output. Detailed automated checks live in src module
+tests, tests/native_regression.rs, tests/campaign.rs, tests/asset_validation.rs.
+Reference fixtures: six start-screen captures and an 80-frame movement recording.
+Background comparisons mask actors/HUD and require >=97% matching pixels.
+Audio tests decode all 43 WAVs and validate loop lengths against the manifest.
 
-Tests: 12 passed, including 4 audio, 4 video, and 4 game tests.
-Final strengthened game tests: all 4 passed after adding final ending-screen,
-next-loop, and continue-restart assertions. Audio/video sources unchanged.
+Campaign tests intentionally set the camera near boss triggers and apply damage
+to cover all six clears, ending and harder-loop restart. They do not demonstrate
+a human completion, exact attack-pattern parity, or hardware audio accuracy.
+Enemy and boss family behavior is authored. Original cinematics, some weapon and
+rescue details, HUD and dynamic palette changes are not fully reproduced. README
+and native-recovery.txt describe this fidelity boundary.
 
-Game verification:
-- Original title Select/Start enters two-player gameplay; both players move.
-- All 6 original stage initialization paths reach active gameplay and run 1,800
-  frames of seeded directional/fire input per stage.
-- Original map/event streams reach every boss area using test-only invulnerability
-  and forced scrolling; each encounter then executes 600 frames.
-- Test-only boss-victory injection exercises all stage-clear transitions.
-- Final ending advances to substate 10 (final screen), Start enters a new loop.
-- Losing all lives reaches original game-over and continue screens; Start restores
-  lives and returns to gameplay.
-- Audio includes the two original DMC samples (fixed-bank source bytes).
-- Video checks include mirroring, palette aliases, buffered reads, sprite priority,
-  flipping, 8x16 sprites, DMA wrapping, scrolling, and story split scrolling.
+Historical verification of the previous translation is available in Git revision
+e8fc3391d5b27fcd98b82fd27984141840449708; its 12 tests and PPM screenshots describe
+that old implementation, not the current one.
 
-Limits:
-These tests execute compiled ROM logic; they are not a human full playthrough,
-an original-hardware differential comparison, or proof every possible branch ran.
-The host's frame-composed graphics and frame-timed audio approximate hardware.
-Initial interactive window attempt failed with XOpenDisplay failed in the sandbox.
-After display access was enabled, a live X11 window was verified with WM_CLASS
-jackal-native/JackalNative and _NET_WM_WINDOW_OPACITY=4294967295 (fully opaque).
-The user confirmed the game runs and the opacity fix works. Audio-device playback
-has not been independently checked.
+Final results: 40 automated tests passed (17 module, 4 asset validation, 8 campaign,
+11 native regression); formatting and strict Clippy passed. Headless1200 ticks
+completed with PNG output. Optional graphics exporter --check reproduced all PNG,
+palette and controller fixtures exactly. Live512x480 X11 window observed with
+WM_CLASS jackal-native/JackalNative and opacity4294967295 (fully opaque). Playback
+was muted for the desktop check; audible output was not assessed. All changes
+remain unstaged; the Git index is empty.
 
-Self-contained repository update:
-The generated Rust and 128 KiB banked data are now checked in at
- generated/native_game.rs
- assets/game-data.bin
-Cargo compiles/includes these directly; build.rs has been removed. The original
-ROM and Python are no longer dependencies of the build or executable.
-Clean-copy verification without the ROM or old target directory: all 12 tests pass.
+Destruction visual regression fixes:
+- Prison rubble recovered from original tile patch tables; all36 stage/type
+  definitions in assets/destruction.json. Exact bytes verified by optional
+  export_destruction.py --check. Permanent patches preserve palette attributes.
+- Infantry types1..4 use frame24/palette1 for32 ticks, sound12; separate from
+  grenade explosion and removed from collision immediately. Original runtime
+  samples and frame in tests/fixtures/infantry_death.* establish this behavior.
+- Four integration tests exercise actual impacts, lifetime, all36 rubble renders,
+  and all66 opaque corpse pixels against the captured original image. Two added
+  terrain tests check original literal tile IDs and stage coverage.46 tests now
+  pass in total; strict Clippy passes. Changes remain unstaged.
+
+
+2026-10-18 — original presentation and native fidelity restoration
+- cargo test --offline: PASS, 131 tests across the library and integration suites.
+- cargo fmt --all -- --check: PASS.
+- cargo clippy --offline --all-targets -- -D warnings: PASS.
+- git diff --check: PASS; Git index remains empty (all edits unstaged).
+- Native CLI smoke runs: all six stages complete 1,200 ticks, exit 0, state Playing.
+- Native desktop window: opened with --mute, ran eight seconds without an error,
+  then was deliberately terminated by timeout (exit124).
+- Helicopter deployment: cargo run --offline -- --headless 607 --screenshot
+  /tmp/jackal-helicopter-restored.png --mute completed in Briefing tick546. Checked
+  /tmp/jackal-helicopter-restored.png: helicopter, jeep and original beach present.
+- Campaign integration clears all six encounters, ending, and harder-loop restart.
+- Independent reference checks include actor allocation, boss controllers, co-op,
+  deaths/projectiles, patch collision, rescue reinforcements, all64 sprite-priority
+  rotations and stage4 background-priority palette snapshots.
+- Runtime assets are PNG/JSON/WAV; no ROM, banked binary or translated instruction
+  dispatcher is used by cargo run. Optional reference tools remain separate.
+- Fidelity evidence and remaining validation boundaries: analysis/fidelity-audit.md.

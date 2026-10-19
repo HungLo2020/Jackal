@@ -1,0 +1,71 @@
+Enemy fidelity recovery (2026-10-18)
+
+Evidence: original data in historical commit e8fc3391d5b27fcd98b82fd27984141840449708.
+Static disassembly of bank6 and fixedbank7; runtime captures from isolated original
+handlers through the historical translated reference, not from the native rewrite.
+Reproduce: python3 tools/reference/export_enemy_sequences.py --check
+Fixture: tests/fixtures/enemy_sequences.json; 600 ticks each for types02,2C,2D,2E.
+The isolated setup has actor slot0,world(80,80),player0(80,160),stage0,difficulty0.
+It records actor frames/flips and spawns (36bullet,39missile); it does NOT verify the
+child projectile's subsequent movement, full game integration, or enemy slot pressure.
+
+Recovered/implemented:
+02 sentry: bank6 84F8 initialization; 851E wait/aim; 8570 burst/recovery.
+Stationary. Initialwait slot*8 (slot0 wraps to256). Wait by (stage+difficulty)/2:
+128,112,96,80,64,48. Burst countdown8,8,16,9,24,17, emitting every8ticks then
+7recoveryticks. Does not shoot while player is closer than64 Manhattanpixels.
+Aim quantization F5EE..F69E, original32-heading fixedpointvelocity F761.
+Sprite helper F7EE first calls F7C9, applying two spriteoffsettables, not one.
+Thus directional infantry sprites18,18,19,19,18,18,20,20; horizontalflips recovered.
+Native configure_spawn must receive actualslot/stage/difficulty at spawning.
+
+2C fixedlauncher: A607..A680. Wait128, open8+8ticks, frames69,6A; spawn39,
+reset69 andwait128. Currentoldasset animationlisting69..6B was not runtimeevidence.
+2D retractinglauncher: A548..A5F2. Wait128 with exact X-flip cadence, three4tick
+openingsteps6C/6D/6E; spawn39 then three4tick closingsteps6E/6D/6C, wait128.
+2E heavylauncher: B41F..B49E. Wait128 closed9F (collisionflagsF0), opensA0 for16,
+spawn39, staysopen8, closes9F. Onlyopenstate receivesdamage.
+Every native frame/spriteflip/spawn tick matches the600tick reference fixture.
+
+Further recovered/implemented:
+03 grenadier now shares recovered sentry states with original fixed rank0 timing,
+while spawning projectile34 instead of rifle bullets. Palette1/3 and firing cycles
+are compared with original600tick captures for both sentry variants.
+01/04 roaming infantry now port8263/A470:80pixel target-relative waypoints, original
+32heading8.8 movement, obstacle turning, walking animation, approach/pause/fire
+states.1200tick captures for each validate everyposition/frame/flip/palette/shot.
+
+Projectile34 grenade: FB3A..FC07; initialization plus8invisibletravel ticks,
+48+16ticks directional animation, then32ticks harmless smoke and removal. Full106
+update capture matches native positions/frames/flips. Projectile36: BD8A..BE3D;
+configurable speed/lifetime/initialsprite delay,8tick impact.73update sentry capture
+matches all positions/frames. Projectile39:8008..8111; all four variant parameter
+tables ported, heading turns one unit at each interval; original fixed-point speeds.
+Allfour missile variants are captured through removal/offscreen exit; everyposition,
+frame, palette and flip matches. Grenade initialdelay8/16 and bomb48/64fuses
+also have complete matching captures. Enemybullet wallcollision uses original
+8pixel lookahead onoddremainingticks, confirmed against10tick impact/removal
+capture; stage6 marsh/configuration rules are statically recovered.
+Reproduce projectile captures: tools/reference/export_enemy_projectiles.py --check.
+
+Remaining bounded gaps:
+Native enemy terrain-probe behavior and the stage5 late-map bullet configuration
+adjustment still require broader collision fixtures.01/04 clear, blocked and marsh terrain traces pass; co-op
+player targeting/slot staggering needs global integration checks.
+Vehicle05/06 states B7D8..BAA1 pass six600tick traces: original rotation limits,
+recoil, muzzle offsets, shots and palettes. Vehicle07/0F use recovered shared
+814D..8260 states; all four600tick traces pass. Boat08/1A both600tick traces pass.
+Mediumtank0B/0E and retractinggun0C each600ticks pass; ambush10/1F, child1E
+and trooptruck11 each600ticks pass (positions/frames/flips/palettes/spawncounts).
+Ambush10/1F emits terrain patch5 and child1E after24-frame explosion; truck11
+emits8 infantry at129tick intervals after entry. Native source0C dynamically
+exposes13x10 collision halfsize, otherwise intangible. Cannon2A/2B/2F/30 now match captured state sequences:2A/2B fire five
+projectiles across three volleys;2F/30 are moving cannon traps, not stationary
+shooters. Source29 mobile launcher and21/22 background missile guns each match
+600ticks. Source12 popupspread turret matches600ticks. Genericfamily chase/sine
+and guessed fire fallback removed; supports_source plus level-event ownership
+test guards unsupported actor dispatch. Source3A/3B/43 support vehicles recovered
+in support_vehicle.rs with six600tick fixtures by parallel recovery.
+Projectile37 moving bomb8BA3..8C38 has a full89tick matching reference trace,
+including its harmless flight, spinning frames and24tick damaging explosion. Passing isolated actor traces must not be
+represented as proof of whole-game fidelity.

@@ -1,0 +1,1439 @@
+{
+  "reference_commit": "e8fc3391d5b27fcd98b82fd27984141840449708",
+  "method": "Invoke original entity death state in initialized stage1; sample after original game update. Entry state7 for types1/4 and3 for types2/3. Sprite DMA is buffered; screenshot is tick3.",
+  "sprite": 24,
+  "palette": 1,
+  "flip_x": false,
+  "flip_y": false,
+  "duration_ticks": 32,
+  "sound_command": 18,
+  "screenshot": "infantry_death.png",
+  "screenshot_sprite_bounds": {
+    "x": 76,
+    "y": 89,
+    "width": 8,
+    "height": 16
+  },
+  "captures": [
+    {
+      "samples": [
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 0,
+          "timer": 32,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 1,
+          "timer": 31,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 2,
+          "timer": 30,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 3,
+          "timer": 29,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 4,
+          "timer": 28,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 5,
+          "timer": 27,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 6,
+          "timer": 26,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 7,
+          "timer": 25,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 8,
+          "timer": 24,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 9,
+          "timer": 23,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 10,
+          "timer": 22,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 11,
+          "timer": 21,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 12,
+          "timer": 20,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 13,
+          "timer": 19,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 14,
+          "timer": 18,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 15,
+          "timer": 17,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 16,
+          "timer": 16,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 17,
+          "timer": 15,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 18,
+          "timer": 14,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 19,
+          "timer": 13,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 20,
+          "timer": 12,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 21,
+          "timer": 11,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 22,
+          "timer": 10,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 23,
+          "timer": 9,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 24,
+          "timer": 8,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 25,
+          "timer": 7,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 26,
+          "timer": 6,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 27,
+          "timer": 5,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 28,
+          "timer": 4,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 29,
+          "timer": 3,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 30,
+          "timer": 2,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 31,
+          "timer": 1,
+          "type": 1,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 32,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 33,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 34,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        }
+      ],
+      "source_type": 1
+    },
+    {
+      "samples": [
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 0,
+          "timer": 32,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 1,
+          "timer": 31,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 2,
+          "timer": 30,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 3,
+          "timer": 29,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 4,
+          "timer": 28,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 5,
+          "timer": 27,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 6,
+          "timer": 26,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 7,
+          "timer": 25,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 8,
+          "timer": 24,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 9,
+          "timer": 23,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 10,
+          "timer": 22,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 11,
+          "timer": 21,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 12,
+          "timer": 20,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 13,
+          "timer": 19,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 14,
+          "timer": 18,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 15,
+          "timer": 17,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 16,
+          "timer": 16,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 17,
+          "timer": 15,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 18,
+          "timer": 14,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 19,
+          "timer": 13,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 20,
+          "timer": 12,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 21,
+          "timer": 11,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 22,
+          "timer": 10,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 23,
+          "timer": 9,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 24,
+          "timer": 8,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 25,
+          "timer": 7,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 26,
+          "timer": 6,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 27,
+          "timer": 5,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 28,
+          "timer": 4,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 29,
+          "timer": 3,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 30,
+          "timer": 2,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 31,
+          "timer": 1,
+          "type": 2,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 32,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 33,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 34,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        }
+      ],
+      "source_type": 2
+    },
+    {
+      "samples": [
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 0,
+          "timer": 32,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 1,
+          "timer": 31,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 2,
+          "timer": 30,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 3,
+          "timer": 29,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 4,
+          "timer": 28,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 5,
+          "timer": 27,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 6,
+          "timer": 26,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 7,
+          "timer": 25,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 8,
+          "timer": 24,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 9,
+          "timer": 23,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 10,
+          "timer": 22,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 11,
+          "timer": 21,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 12,
+          "timer": 20,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 13,
+          "timer": 19,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 14,
+          "timer": 18,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 15,
+          "timer": 17,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 16,
+          "timer": 16,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 17,
+          "timer": 15,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 18,
+          "timer": 14,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 19,
+          "timer": 13,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 20,
+          "timer": 12,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 21,
+          "timer": 11,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 22,
+          "timer": 10,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 23,
+          "timer": 9,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 24,
+          "timer": 8,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 25,
+          "timer": 7,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 26,
+          "timer": 6,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 27,
+          "timer": 5,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 28,
+          "timer": 4,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 29,
+          "timer": 3,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 30,
+          "timer": 2,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 4,
+          "tick": 31,
+          "timer": 1,
+          "type": 3,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 32,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 33,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 34,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        }
+      ],
+      "source_type": 3
+    },
+    {
+      "samples": [
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 0,
+          "timer": 32,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 1,
+          "timer": 31,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 2,
+          "timer": 30,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 3,
+          "timer": 29,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 4,
+          "timer": 28,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 5,
+          "timer": 27,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 6,
+          "timer": 26,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 7,
+          "timer": 25,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 8,
+          "timer": 24,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 9,
+          "timer": 23,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 10,
+          "timer": 22,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 11,
+          "timer": 21,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 12,
+          "timer": 20,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 13,
+          "timer": 19,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 14,
+          "timer": 18,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 15,
+          "timer": 17,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 16,
+          "timer": 16,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 17,
+          "timer": 15,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 18,
+          "timer": 14,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 19,
+          "timer": 13,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 20,
+          "timer": 12,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 21,
+          "timer": 11,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 22,
+          "timer": 10,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 23,
+          "timer": 9,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 24,
+          "timer": 8,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 25,
+          "timer": 7,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 26,
+          "timer": 6,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 27,
+          "timer": 5,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 28,
+          "timer": 4,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 29,
+          "timer": 3,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 30,
+          "timer": 2,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 1,
+          "sprite": 24,
+          "state": 8,
+          "tick": 31,
+          "timer": 1,
+          "type": 4,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 32,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 33,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        },
+        {
+          "attribute": 0,
+          "sprite": 0,
+          "state": 0,
+          "tick": 34,
+          "timer": 0,
+          "type": 0,
+          "x": 80,
+          "y": 96
+        }
+      ],
+      "source_type": 4
+    }
+  ]
+}

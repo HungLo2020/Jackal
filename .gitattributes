@@ -1,2 +1,4 @@
-generated/native_game.rs linguist-generated=true
-assets/game-data.bin binary
+*.png binary
+*.wav binary
+*.json text eol=lf
+*.rs text eol=lf

@@ -1,0 +1,40 @@
+mod audio;
+mod game;
+mod video;
+use game::Game;
+fn main() {
+    let mut out = vec![];
+    for (typ, handler, targetx, targety, stage) in [
+        (5, 0xb7d8, 80, 160, 0),
+        (6, 0xb928, 80, 160, 0),
+        (5, 0xb7d8, 160, 160, 0),
+        (6, 0xb928, 160, 160, 0),
+        (5, 0xb7d8, 80, 0, 5),
+        (6, 0xb928, 80, 0, 5),
+    ] {
+        let mut g = Game::new(false).unwrap();
+        g.memory.fill(0);
+        g.memory[0x30] = stage;
+        g.memory[0x530] = 1;
+        g.memory[0x5b0] = targetx;
+        g.memory[0x570] = targety;
+        g.memory[0x720] = typ;
+        g.memory[0x710] = 80;
+        g.memory[0x560] = 80;
+        let mut samples = vec![];
+        for tick in 0..600 {
+            g.memory[0x1a] = tick as u8;
+            g.actor_call(handler, 0).unwrap();
+            let mut shots = vec![];
+            for j in 1..16 {
+                if g.memory[0x720 + j] != 0 {
+                    shots.push(g.memory[0x720 + j]);
+                    g.memory[0x720 + j] = 0;
+                }
+            }
+            samples.push(serde_json::json!({"tick":tick,"sprite":g.memory[0x500],"palette":g.memory[0x540],"direction":g.memory[0x6c0],"target_x":g.memory[0x5b0],"target_y":g.memory[0x570],"flips":g.memory[0x6a],"x":g.memory[0x710] as f32+g.memory[0x5c0] as f32/256.,"y":g.memory[0x560] as f32+g.memory[0x580] as f32/256.,"state":g.memory[0x520],"timer":g.memory[0x670],"shots":shots}));
+        }
+        out.push(serde_json::json!({"source_type":typ,"stage":stage,"target":[targetx,targety],"samples":samples}));
+    }
+    println!("{}", serde_json::to_string_pretty(&out).unwrap());
+}

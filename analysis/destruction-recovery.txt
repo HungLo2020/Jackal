@@ -1,0 +1,32 @@
+Prison-building destruction regression recovery
+
+Reference: historical commit e8fc3391d5b27fcd98b82fd27984141840449708,
+assets/game-data.bin; static disassembly using historical tools/disassemble.py.
+
+Observed code/data:
+- Bank 6 BABC selects destruction ID from BAE5 for source types 14/1D,
+  BAEB for 13/1C. Each table has six entries, selected by stage.
+- Bank 6 BB05 selects BB18's stage entry for type15; ADC1 selects ID16
+  for type19.
+- Fixed-bank F8C2 calls F33D with that ID during building destruction.
+- F350 reads signed X offsets at F394 and Y offsets at F3B1.
+- DF6E/DF70 select a 4 by 4 rectangle for these IDs. E099 points at
+  row-major background tile bytes; E03C writes those bytes to the screen.
+  The routine does not replace background palette attributes.
+
+Implementation:
+- assets/destruction.json contains all36 type/stage combinations, signed
+  pixel offsets, explicit dimensions and decoded tile IDs.
+- tools/reference/export_destruction.py --check reproduces the file from
+  the historical artifact without using binary data in the native runtime.
+- TerrainChanges::destroy_building applies this rectangle and retains each
+  cell's existing palette, including building portions outside the rectangle.
+- Native collision opens patched cells, consistent with the existing native
+  destruction model; exact original collision memory encoding was not ported.
+
+Verification:
+- Literal original stage1 right-side rubble tile values asserted in terrain
+  unit test, along with retained per-cell palette and passable collision.
+- Every stage/type variant exists; map clipping and repeated calls checked.
+- Visual comparison of stage1 small hut and large buildings shows the blasted
+  doorway/wall and retained roof; it no longer replaces buildings with sand.

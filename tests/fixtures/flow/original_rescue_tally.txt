@@ -1,0 +1,38 @@
+continue 0 state8 sub0 choice0 lives0 stage0
+continue 20 state8 sub0 choice0 lives0 stage0
+continue 40 state8 sub0 choice0 lives0 stage0
+continue 60 state0 sub0 choice0 lives0 stage0
+continue 80 state1 sub0 choice0 lives0 stage0
+continue 100 state1 sub0 choice0 lives0 stage0
+continue 120 state1 sub0 choice0 lives0 stage0
+continue 140 state1 sub0 choice0 lives0 stage0
+continue 160 state1 sub0 choice0 lives0 stage0
+continue 180 state1 sub0 choice0 lives0 stage0
+continue 200 state1 sub0 choice0 lives0 stage0
+continue 220 state1 sub0 choice0 lives0 stage0
+continue 240 state1 sub0 choice0 lives0 stage0
+continue 260 state1 sub0 choice0 lives0 stage0
+continue 280 state1 sub0 choice0 lives0 stage0
+continue 300 state1 sub0 choice0 lives0 stage0
+continue 320 state1 sub0 choice0 lives0 stage0
+continue 340 state1 sub0 choice0 lives0 stage0
+continue 360 state1 sub0 choice0 lives0 stage0
+continue 380 state1 sub0 choice0 lives0 stage0
+tally 0 [7, 1, 4, 2, 18, 3, 0]
+tally 137 [7, 2, 4, 2, 18, 3, 0]
+tally 210 [7, 3, 4, 2, 18, 3, 0]
+tally 211 [7, 3, 4, 2, 17, 2, 0]
+tally 219 [7, 3, 4, 2, 16, 1, 0]
+tally 227 [7, 3, 4, 2, 9, 0, 0]
+tally 235 [7, 3, 4, 2, 8, 0, 0]
+tally 243 [7, 3, 4, 2, 7, 0, 0]
+tally 251 [7, 3, 4, 2, 6, 0, 0]
+tally 259 [7, 3, 4, 2, 5, 0, 0]
+tally 267 [7, 3, 4, 2, 4, 0, 0]
+tally 275 [7, 3, 4, 2, 3, 0, 0]
+tally 283 [7, 3, 4, 2, 2, 0, 0]
+tally 291 [7, 3, 4, 2, 1, 0, 0]
+tally 299 [7, 3, 4, 2, 0, 0, 0]
+tally 419 [7, 4, 4, 2, 0, 0, 0]
+tally 568 [5, 4, 4, 2, 0, 0, 1]
+tally 895 [5, 4, 0, 2, 0, 0, 1]

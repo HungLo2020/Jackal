@@ -1,7 +1,0 @@
-{
-  "rom_sha256": "97e0e7d84ce6cca3fd3ec5eabb3fa00252de54f1354156ca2b95b95a39237373",
-  "candidate_entries": 79090,
-  "coverage": "All official-opcode offsets; not all entries are code",
-  "data_sha256": "6928e8c589d6d9cc199a7b0841877531ef53dce479e36f90ec1d9cdcbf54372d",
-  "native_source_sha256": "8e95bb0ac89a8efe747c6496446d6024f906b0f2d302d8cab5634df6d2b8819d"
-}

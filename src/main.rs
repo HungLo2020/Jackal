@@ -1,52 +1,122 @@
-mod audio;
-mod game;
-mod video;
 mod window;
-use game::Game;
+use jackal_native::{
+    assets::Assets,
+    game::{Game, GameEvent},
+    input::{Input, PlayerInput},
+    renderer::{Renderer, HEIGHT, WIDTH},
+    sound::Sound,
+    TICKS_PER_SECOND,
+};
 use minifb::{Key, KeyRepeat, Scale, Window, WindowOptions};
 use std::{
     error::Error,
+    path::PathBuf,
     time::{Duration, Instant},
 };
 
-fn main() -> Result<(), Box<dyn Error>> {
-    let args: Vec<String> = std::env::args().collect();
-    if let Some(pos) = args.iter().position(|a| a == "--headless") {
-        let frames: usize = args
-            .get(pos + 1)
-            .ok_or("--headless needs frame count")?
-            .parse()?;
-        let mut game = Game::new(false)?;
-        for f in 0..frames {
-            let input = if f == 120 {
-                8
-            } else if f > 500 {
-                0x11
-            } else {
-                0
-            };
-            game.update([input, 0])?;
-        }
-        let pixels = game.video.render();
-        if let Some(pos) = args.iter().position(|a| a == "--screenshot") {
-            let path = args.get(pos + 1).ok_or("--screenshot needs PPM path")?;
-            let mut bytes = b"P6\n256 240\n255\n".to_vec();
-            for p in pixels {
-                bytes.extend_from_slice(&[(p >> 16) as u8, (p >> 8) as u8, *p as u8]);
+#[derive(Default)]
+struct Options {
+    headless: Option<u64>,
+    screenshot: Option<PathBuf>,
+    stage: Option<usize>,
+    mute: bool,
+    assets: Option<PathBuf>,
+}
+impl Options {
+    fn parse() -> Result<Self, Box<dyn Error>> {
+        let mut result = Self::default();
+        let mut args = std::env::args().skip(1);
+        while let Some(arg) = args.next() {
+            match arg.as_str() {
+                "--headless" => {
+                    result.headless = Some(
+                        args.next()
+                            .ok_or("--headless needs a frame count")?
+                            .parse()?,
+                    )
+                }
+                "--stage" => {
+                    let stage: usize = args.next().ok_or("--stage needs 1..6")?.parse()?;
+                    if !(1..=6).contains(&stage) {
+                        return Err("stage must be between 1 and 6".into());
+                    }
+                    result.stage = Some(stage - 1);
+                }
+                "--screenshot" => {
+                    result.screenshot =
+                        Some(args.next().ok_or("--screenshot needs a PNG path")?.into())
+                }
+                "--assets" => {
+                    result.assets = Some(args.next().ok_or("--assets needs a directory")?.into())
+                }
+                "--mute" => result.mute = true,
+                "--help" | "-h" => {
+                    println!("Jackal native Rust\n  cargo run [-- --mute] [--stage 1..6]\n  --headless FRAMES --screenshot FILE.png\n  --assets DIRECTORY\nArrows/Z(grenade)/X(gun)/Enter/Tab; player 2 WASD/G/H/Y/T.\nP: pause, R: restart, Escape: exit.");
+                    std::process::exit(0);
+                }
+                _ => return Err(format!("Unknown option: {arg}").into()),
             }
-            std::fs::write(path, bytes)?;
+        }
+        if result.screenshot.is_some() && result.headless.is_none() {
+            return Err("--screenshot requires --headless".into());
+        }
+        Ok(result)
+    }
+}
+fn main() -> Result<(), Box<dyn Error>> {
+    let options = Options::parse()?;
+    let assets = Assets::load(&options.assets.unwrap_or_else(Assets::default_directory))?;
+    let mut game = Game::new();
+    let mut renderer = Renderer::new();
+    if let Some(stage) = options.stage {
+        game.start_new_game(1, &assets);
+        game.start_stage(stage, &assets);
+    }
+    if let Some(frames) = options.headless {
+        for tick in 0..frames {
+            let input = Input {
+                start: tick == 60,
+                players: [
+                    PlayerInput {
+                        up: tick > 240,
+                        gun: tick > 240,
+                        grenade: tick > 240 && tick.is_multiple_of(48),
+                        ..PlayerInput::default()
+                    },
+                    PlayerInput::default(),
+                ],
+                ..Input::default()
+            };
+            game.update(input, &assets);
+            game.drain_events();
+        }
+        let pixels = renderer.render(&game, &assets);
+        if let Some(path) = options.screenshot {
+            let bytes: Vec<u8> = pixels
+                .iter()
+                .flat_map(|p| [(p >> 16) as u8, (p >> 8) as u8, *p as u8])
+                .collect();
+            image::save_buffer_with_format(
+                path,
+                &bytes,
+                WIDTH as u32,
+                HEIGHT as u32,
+                image::ColorType::Rgb8,
+                image::ImageFormat::Png,
+            )?;
         }
         println!(
-            "Completed {} native frames; {} translated entries; state={:02x} bank={}",
-            game.frame, game.transfers, game.memory[0x18], game.bank
+            "Completed {frames} native ticks; stage {}; state {:?}",
+            game.stage + 1,
+            game.state
         );
         return Ok(());
     }
-    let mut game = Game::new(!args.iter().any(|a| a == "--mute"))?;
+    let mut sound = Sound::new(!options.mute);
     let mut window = Window::new(
-        "Jackal — native Rust | Enter: Start | Z/X: Fire | Esc: Exit",
-        256,
-        240,
+        "Jackal — native Rust | Z: Grenade | X: Gun | Enter: Start",
+        WIDTH,
+        HEIGHT,
         WindowOptions {
             scale: Scale::X2,
             resize: true,
@@ -54,57 +124,53 @@ fn main() -> Result<(), Box<dyn Error>> {
         },
     )?;
     window::configure(&window)?;
-    window.set_target_fps(0);
-    let mut paused = false;
-    let mut next = Instant::now();
-    let step = Duration::from_nanos(16_639_267);
+    window.set_target_fps(120);
+    let step = Duration::from_secs_f64(1. / TICKS_PER_SECOND);
+    let mut previous = Instant::now();
+    let mut accumulator = Duration::ZERO;
     while window.is_open() && !window.is_key_down(Key::Escape) {
-        if window.is_key_pressed(Key::P, KeyRepeat::No) {
-            paused = !paused;
-        }
         if window.is_key_pressed(Key::R, KeyRepeat::No) {
-            game = Game::new(!args.iter().any(|a| a == "--mute"))?;
+            game = Game::new();
+            sound.pause(false);
         }
-        let layouts = [
-            [
-                Key::Z,
-                Key::X,
-                Key::Tab,
-                Key::Enter,
-                Key::Up,
-                Key::Down,
-                Key::Left,
-                Key::Right,
-            ],
-            [
-                Key::G,
-                Key::H,
-                Key::T,
-                Key::Y,
-                Key::W,
-                Key::S,
-                Key::A,
-                Key::D,
-            ],
-        ];
-        let mut buttons = [0; 2];
-        for (p, keys) in layouts.iter().enumerate() {
-            for (i, k) in keys.iter().enumerate() {
-                if window.is_key_down(*k) {
-                    buttons[p] |= 1 << i;
-                }
+        let now = Instant::now();
+        accumulator += (now - previous).min(step * 5);
+        previous = now;
+        let mut input = Input {
+            start: window.is_key_down(Key::Enter) || window.is_key_down(Key::Y),
+            select: window.is_key_down(Key::Tab) || window.is_key_down(Key::T),
+            pause: window.is_key_down(Key::P),
+            ..Input::default()
+        };
+        for (i, keys) in [
+            [Key::Up, Key::Down, Key::Left, Key::Right, Key::Z, Key::X],
+            [Key::W, Key::S, Key::A, Key::D, Key::G, Key::H],
+        ]
+        .iter()
+        .enumerate()
+        {
+            input.players[i] = PlayerInput {
+                up: window.is_key_down(keys[0]),
+                down: window.is_key_down(keys[1]),
+                left: window.is_key_down(keys[2]),
+                right: window.is_key_down(keys[3]),
+                grenade: window.is_key_down(keys[4]),
+                gun: window.is_key_down(keys[5]),
+            };
+        }
+        while accumulator >= step {
+            game.update(input, &assets);
+            accumulator -= step;
+        }
+        for event in game.drain_events() {
+            match event {
+                GameEvent::Music(track) => sound.music(track),
+                GameEvent::AudioCommand(command) => sound.command(command),
+                GameEvent::Effect(effect) => sound.effect(effect),
+                GameEvent::Pause(paused) => sound.pause(paused),
             }
         }
-        if !paused {
-            game.update(buttons)?;
-        }
-        window.update_with_buffer(game.video.render(), 256, 240)?;
-        next += step;
-        if let Some(delay) = next.checked_duration_since(Instant::now()) {
-            std::thread::sleep(delay);
-        } else {
-            next = Instant::now();
-        }
+        window.update_with_buffer(renderer.render(&game, &assets), WIDTH, HEIGHT)?;
     }
     Ok(())
 }

@@ -1,0 +1,131 @@
+Clean native rewrite data recovery
+Independent static decoding of supplied PRG, not REA output.
+Exporter tools/extract_levels.py reads only original data tables; it does not execute
+6502 code, decode instruction streams at runtime, or emit translated CPU statements.
+Exported assets/levels/stage_01.json through stage_06.json and sprites.json.
+
+Maps:
+Stage banks 4,4,5,4,4,5. Fixed stage-indexed pointer arrays:
+ CFF4 map sequence of page IDs (13 first five;14 final)
+ D000 page records,128 bytes each (16 columns x8 metatiles)
+ D00C metatile records,16 bytes each (4x4 tile IDs)
+ D018 palette attributes indexed by original metatile ID
+ CFEE common-metatile cutoff [0,17,0,17,17,0]
+IDs below cutoff select stage0 definitions in bank4. Remaining IDs subtract cutoff
+before indexing current stage definitions. Palette table uses unadjusted IDs.
+The streaming routine CD7A increases source subrow4D/metatile-row4C/page4B while
+subtracting destination nametable address by32. Therefore logical source tile rows
+are reversed to produce top-to-bottom world image. Tile internal pixels not flipped.
+Palette source subrows0/1 use attr high nibble, subrows2/3 low nibble; left half low
+2bits of nibble, right half high2bits. This follows CF48 masks and is static-derived.
+Map width512px, first5 heights3328, final3584. Preserve final sequence entry; it is
+streamed into final boss viewport even when identical to preceding page.
+Initial source row2 writes to nametable tile row29 (y232), yielding native camera
+world_y=map_height-256-world_scroll. Need visual validation against reference capture.
+Collision classes are computed from tile number and six stage thresholds at CFBE:
+0 below a;1 [a,b);2 [b,c);0 [c,d);1 [d,e);2 [e,f);3 >=f.
+Movement normally blocks nonzero classes. Stage index3 permits class3 but halves
+velocity, per EA89..EAD7. Enemy/projectile terrain behavior still requires recovery.
+
+Events:
+F1E0 fixed pointers to bank6 stage tables:85F4,8941,9064,A151,AA5C,B128.
+Each table has page pointers; script records are (pixel,xbyte,typebyte).
+World event distance=page*240+pixel (distinct from map record height256).
+X=(xbyte&127)*4; xbyte top bit spawns at bottom rather than top.
+Type top bit invokes additional spawn selection at F1EC. It is retained as
+conditional, not silently discarded. Odd trigger pixel requires difficulty3 in
+F1A3..F1B1; retained odd_difficulty_only.
+EF terminates page. F0 pixel begins forced scroll, F1 pixel prepares palette,
+F2 pixel changes palette; retained separately as commands.
+Unknown semantic kinds remain entity_XX. Do not present these as recovered distinct
+behaviors until original routines are analyzed and their state transitions ported.
+Entity type01..03 infantry share sprite12 routines. Boss type IDs09,20,25,40,17;
+final gate49/core45/building4B. Some human-friendly boss labels are working labels,
+not proof of exact original object composition. Spawn counts74,107,133,92,138,143.
+
+Sprites:
+Bank1 tables81F7 and8B5C each128 pointers map all256 sprite IDs. Frame records contain
+count byte then count (signed dy,tile,attr,signed dx) tuples. 8x16 sprite dimensions.
+Attrs low2bits palette,bit5 background priority,bit6 horizontal flip,bit7 vertical.
+Hardware8x16 tile bank selected by tile lowbit, paired tiles begin tile&FE.
+Per-object attributes are ORed and per-object flips XORed with part attributes;
+object horizontal flip transforms dx=-dx-8, vertical dy=-dy-16.
+Metasprite definitions recovered completely; animation timing/sequencing remains
+part of original actor state logic and is NOT supplied by these frame records.
+
+Native semantic asset refinement:
+Raw handler/state candidates moved to analysis/native-entities.json. Runtime
+entity_specs.json contains only named families, gameplay stats, frame IDs and semantic
+parameters. Families assigned explicitly for all scripted source IDs; unresolved
+visual identity within a family uses descriptive variant names. These category
+assignments support a native authored behavior implementation; they do NOT establish
+full recovery of every original state machine. Most entity handlers have5-9 states,
+roughly30 independent families. Classifications vehicle/turret/environment for less
+studied IDs remain provisional pending visual/reference validation.
+
+IMPORTANT correction: event type highbit means priority allocation, NOT conditional
+spawn. F1EC forcibly evicts an eligible entity if the16-slot pool is full. Flagged
+variants can additionally alter handler logic. JSON retains raw_source_type and
+priority_spawn. Odd pixel difficulty suppression remains a separate original check.
+
+Metadata: F926+type*2 points to handler; F9CE is hitbox/interaction flags; FA42 HP
+(bit7 grenade-only); FA96 high nibble score index, low nibble death-state index.
+Score BCD table E648 gives0,50,100,200,300,500,800,1000,1500,2000,3000,5000,8000,
+9000,9990,10. Hitbox halfsizes FA22 indexed by interaction flags low nibble.
+Original score index can increase one when both players are active (F1CF).
+
+Player exact behaviors:
+Cardinal movement1px/frame, diagonal1px each axis (not normalized). Facing rotates
+45degrees every4 global ticks atEC13. Gun always fires upward; B new press immediate,
+held fires when frame&31==0, maximum3 bullets each. Gun bullet speed6px/frame upward,
+lifetime16ticks (range96px), damage1. A new press fires one grenade if slot free;
+normal grenade speed2 cardinal/1.5 each diagonal, fuse40ticks (50 final boss), damage5.
+Upgraded weapon states change explosion pattern; not yet fully recovered.
+Respawn invulnerability160ticks. Death clears weapon and drops carried passengers,
+then death animation/spin and96tick wait before decrementing life and respawning.
+Extra lives first20k then each50k, maximum9. Score saturation behavior requires review.
+Passenger collection E581 unconditionally increments54/55; bounded all-reference
+search found no cap check. Do not invent an8-passenger cap as an established fact.
+Prisoner type16 sparkling flag in06A0 bit0 upgrades weapon one level (max3).
+Unloading at rescue_zone occurs every32ticks while passengers>0 (E997..E9E0), increments
+rescued count inBCD; upgrades awarded at rescued count4,9,15. Final rescue tally adds
+2000 points per passenger via C7FD (original BCD low02=20,01=0 ->2000).
+Pickups type50 screen-clearing bomb,51 weapon maxlevel3,52 extra life.
+
+Recovered useful nonboss family states:
+01..04 infantry use sprite12 base with directional adjustments -1/0/+1 and walking
+frame changes, own patrol/aim/shot states. 05/06 rotating turret sprite1C; durability3/4.
+07 armored vehicle sprite22, HP4, shot interval32;0F variant sprite3D (B5 final stage),
+HP2, shot interval64. 13/14/1C/1D prison huts release multiple type16 prisoners after
+destruction;15 small hut variant;19 special hut. 3C helicopter flyover sprite31;
+3D/3E rescue helicopters sprite2F/30, direction-specific, use passenger occupancy to
+control landing wait. 3F landing-zone interaction has no independent visible sprite.
+2A/2B fixed spread cannons sprite67/68, HP8,4tick opening then5tick attack phases,
+different fixed headings and spread. 2C fixed launcher sprite69..6B HP6, wait128,
+two8tick animation steps then projectile39. 2D retracting launcher sprite6C..6E HP1,
+wait128,three4tick steps opening/closing then projectile39. 2E heavy fixed launcher
+sprite9F/A0 HP64, wait128,16tick opening then projectile39. 2F/30 aimed cannon
+sprite7C HP7,96tick wait, mirrored aiming constraints. These are turret families,
+not moving vehicles (F47E updates camera-relative coordinates only).
+
+Boss composition evidence sent to boss implementation agent:
+09 -> four0A attack tanks, HP10 each grenade-only, interval240/208/176/144 by difficulty,
+alternating top/bottom arrivals; sprite33. 20 -> four18 towers HP15 grenade-only,
+positions worldx188,268,228,308,y28,24tick spacing. 25 -> six flagged92 subparts,
+worldx112,184,184,232,232,296,y70,54,86,54,86,70,24ticks. 40 -> one HP32 grenade-only
+actor,128tick entry wait and144tick initial movement. 17 -> core26 at280,64 and four
+31 at128,176,384,432/y72. Core26 remains shielded until boss remaining count1, then
+interaction flags becomeC5 and it is vulnerable. 4A HQ turret HP63 grenade-only;
+4B building HP127 grenade-only. Exact subpart sprite/attack state recovery delegated.
+
+Visual cross-check after reference texture export:
+Composited original metasprite parts using each stage's PNG atlas. Confirmed08 is
+patrol boat;1A gunboat;05/06 green tanks;07 orange armored vehicle;0B/0E green tanks;
+0F gray tank;11 canvas-top military truck;2A/2B missile launchers;2C fixed launcher.
+Updated semantic names/families accordingly. Sprites12/29/2D/2E/43 include masked or
+background/composite elements; their isolated frame is not sufficient for full art.
+Contact sheets saved /tmp/actor-contact.png and /tmp/actor-stages.png (review artifacts).
+Parent verified map crop98.24% against stage1 reference framebuffer, remaining
+pixels sprites/HUD. Camera initial Y=map_height-256. Gameplay starts original43=1,
+44=0, so event distance=240+native_scrolled_pixels; boss scroll=event_distance-240.
+Passenger54/55 raw binary count, no established capacity cap. Rescued60/61 BCD.

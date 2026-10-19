@@ -1,112 +1,143 @@
-# Jackal — native Rust port
-
-Clone the repository and run from its directory:
+# Jackal — native Rust reconstruction
 
 ```sh
 cargo run
 ```
 
-The translated Rust source and extracted game data are included in the repository.
-No ROM file, Python installation, external emulator, or runtime CPU opcode
-interpreter is required to build or play.
-This is an **ahead-of-time native recompilation**, preserving the original game
-logic and memory layout, rather than a hand-rewritten high-level game engine.
-Rust implements the window, input, tile/sprite rendering, and sound synthesis.
+The game uses ordinary Rust gameplay systems and checked-in PNG, JSON, and PCM
+WAV assets. No ROM, emulator, generated instruction dispatcher, banked data image,
+Python, or asset extraction step is needed to build or play. Linux builds need
+the desktop/ALSA development libraries used by minifb and rodio.
 
-The original program provides the menus, six stages, enemies, bosses, rescues,
-weapon upgrades, scoring, two-player mode, continue system, and ending. The host
-runs the recovered frame routine directly. It does not load arbitrary NES games.
-Video and audio remain approximations of the console hardware; see verification
-and limitations below before treating this as a fidelity-certified replacement.
+This is a playable six-stage reconstruction with two-player controls, prisoners,
+weapon upgrades, destructible terrain, bosses, continues, and an ending loop.
+The fidelity correction is in progress: original presentation and recovered actor
+state machines are replacing the earlier approximations. The remaining gaps are
+tracked in `analysis/fidelity-audit.md`; this is not yet a claim of complete parity.
 
 ## Controls
 
 | Action | Player 1 | Player 2 |
 |---|---|---|
 | Move | Arrow keys | WASD |
-| A / weapon | Z | G |
-| B / weapon | X | H |
+| Grenade / upgraded weapon | Z | G |
+| Machine gun | X | H |
 | Start | Enter | Y |
-| Select | Tab | T |
+| Select players | Tab | T |
 
-Use Select on the title screen to choose two players. P pauses the native host,
-R resets, and Escape exits. The window can be resized. `cargo run -- --mute`
-disables audio. With no audio device, the game continues silently.
+P pauses, R returns to the title, and Escape exits. Select chooses one or two
+players on the title screen. The window is resizable and retains the full-opacity
+X11 application hints. `cargo run -- --mute` disables sound; unavailable audio
+hardware does not prevent play.
 
-## Build requirements
+## Source layout
 
-Rust/Cargo, a desktop display, and the platform libraries needed by minifb and
-rodio (on Linux: X11/Wayland and ALSA development libraries). A first build may
-download Rust dependencies; game assets are already included.
+| File | Responsibility |
+|---|---|
+| `src/main.rs` | CLI, input, fixed-timestep loop, window and sound event delivery |
+| `src/game.rs`, `src/game/` | Named scene states, campaign progression, spawns and system coordination |
+| `src/actor_pool.rs` | Shared actor capacity, stable slot ownership and priority eviction |
+| `src/player.rs`, `src/camera.rs` | Recovered jeep movement, scrolling, co-op boundaries and progression |
+| `src/cinematic.rs`, `src/victory_scene.rs`, `src/hud.rs` | Original scene timelines, live rescue tally and sprite HUD |
+| `src/rescue.rs`, `src/rescue_helicopter.rs` | Prisoner emergence, wandering, boarding and helicopter states |
+| `src/weapon.rs` | Fire cadence, projectile motion, grenade and rocket blasts |
+| `src/enemy.rs` | Native enemy families using editable entity definitions |
+| `src/boss.rs` | Six encounters, armor, delayed arrivals and core shields |
+| `src/terrain.rs` | Destruction patches shared by rendering and collision |
+| `src/renderer.rs` | PNG atlas composition, camera, sprites, HUD and menus |
+| `src/sound.rs` | WAV playback, music loops, effects and pause |
+| `src/assets.rs` | Typed JSON loading and validation |
 
-## Included assets and native code
+`Game::update(Input, &Assets)` advances one deterministic tick at 60.0988 Hz.
+Rendering reads game state without advancing it. Gameplay emits named sound
+events; it has no dependency on the window or audio device. State uses world
+coordinates and named Rust types, with no emulated registers or memory addresses.
 
-- `assets/game-data.bin`: 128 KiB of original banked data, including compressed
-  graphics, maps, animation/event tables, music sequences, and sampled effects.
-- `generated/native_game.rs`: the pretranslated Rust game logic, compiled directly
-  by Cargo. No ROM translation happens during a normal build.
-- `generated/translation.json`: original source identity, candidate entry count,
-  and SHA-256 hashes of the included data and generated Rust.
+## Editable assets
 
-The data keeps its original bank layout because game routines address tables by
-bank and offset. Code and data were interleaved in the original program, so this
-conservative data image also retains instruction bytes; these bytes are not
-executed by a CPU interpreter. This is a banked data extraction, not separate PNG
-and WAV exports. The compiled Rust routines decode graphics and drive the native
-sound synthesizer. Both code and data are embedded in the executable.
+- `assets/cinematics/`: PNG tile atlases and editable JSON compositions/timelines
+  for the mission map, helicopter deployment, attract story, stage victory,
+  continue/loading screens and full ending. Audio cues retain original tick timing.
+- `assets/fonts/hud.png`: original HUD and score glyphs.
+- `assets/texture_phases.json` and `assets/textures/phases/`: recovered stage
+  palette and tile streaming changes, including intermediate transition atlases.
+- `assets/boss_patches.json`: original background tile compositions and collision for boss states.
+- `assets/textures/hq_*` and `assets/textures/river_*`: original headquarters transitions, collapse and animated river artwork.
+- `assets/textures/`: six background atlases, six transparent sprite atlases and
+  the title image, all PNG. Each background atlas has four 256-tile palette rows
+  (128×512 pixels); each sprite atlas has four 256-frame palette rows
+  (128×1024 pixels, individual parts 8×16). Companion palette JSON files record
+  the exported colors. Colors are baked into PNGs; palette JSON is provenance,
+  not a separate runtime color override.
+- `assets/levels/stage_01.json` through `stage_06.json`: complete tile maps,
+  per-cell palette indices and collision, camera starts, spawns and boss triggers.
+  Cells are row-major 8×8 tiles; collision values are 0 ground, 1 solid,
+  2 water and 3 marsh. Marsh is traversable in stage four.
+- `assets/levels/sprites.json`: sprite composition as named fields for part offsets,
+  atlas indices, palettes and flips. Frame IDs are asset identifiers.
+- `assets/levels/entity_specs.json`: named enemy families, health, armor, hitboxes,
+  score and animation references. Attack timing lives in recovered state machines.
+  Source IDs preserve provenance
+  and join spawn records to definitions; they do not dispatch original code.
+- `assets/animations.json`: named player, prisoner, pickup, projectile and infantry death clips.
+- `assets/destruction.json`: recovered stage-specific prison rubble tile rectangles;
+  each patch includes the recovered collision class independently of its artwork.
+- `assets/audio/`: 43 original sound sequences exported to standard PCM WAV.
+  `assets/audio.json` records names, hashes, sample counts and music loop points.
+  WAVs are embedded at compile time by the sound module, so audio edits require
+  rebuilding; changing loop metadata also requires updating its clip definition.
 
-The original `assets/jackal.nes`, intermediate analysis binaries, and build outputs
-remain ignored by Git. They are not build or runtime dependencies.
+Maps and PNGs load at startup, so editing them requires only restarting the game.
+`--assets DIRECTORY` overrides the graphics/level asset directory; embedded audio
+continues to use the checked-in WAV files. Missing or inconsistent assets produce
+an error before gameplay. No automatic extraction occurs during Cargo builds.
 
-## Reconstruction and evidence
-
-- `analysis/rea-archive.json`: retained REA 6.7.0 archive inspection evidence.
-- `analysis/rea-fixed-overview.json`: unsuccessful REA/Ghidra attempt and diagnostic.
-- `analysis/rom.json`: independently measured ROM identity and layout.
-- `analysis/findings.txt`: independent address-based findings, frame entry points,
-  bank switching, state tables, stage/boss events, and test hooks.
-- `tools/disassemble.py`: independent bank disassembly, e.g.
-  `python3 tools/disassemble.py 7 c292 c2f4`.
-- `tools/compile_game.py`: optional historical ROM-to-Rust lowering tool, adapted
-  from the local MicroMages reconstruction. Only regenerating the translation
-  requires Python and the original matching ROM; Cargo does not invoke it.
-- `src/game.rs`: recovered frame scheduler, banked data access, and state helpers.
-- `src/video.rs`: software graphics with story-scene split scrolling.
-- `src/audio.rs`: pulse, triangle, noise, and original DMC samples.
-- `src/window.rs`: desktop application identity and full-opacity X11 window hints.
-
-Checked-in Rust and its translation manifest are under `generated/`. The original
-translation pass lowered every legal-opcode
-offset in each bank as a possible entry, including data that is never executed.
-This conservative coverage handles the game's many computed dispatch tables;
-the candidate count is **not** a count of recovered functions or proven code.
-Unexpected unsupported transfers fail explicitly. There is no interpreter fallback.
-
-REA's MCP open operation was rejected by client approval policy. Its installed
-CLI successfully inspected the archive; deep Ghidra analysis reached import and
-analysis but failed when the sandbox prohibited its local socket. Detailed game
-logic findings therefore come from independent static decoding and native tests,
-not a successful REA decompilation. No REA/client configuration was changed.
-
-## Verification and remaining limits
+## Verification
 
 ```sh
-cargo test --offline
-cargo run --offline -- --headless 1200 --screenshot /tmp/jackal.ppm
+cargo fmt --all -- --check
+cargo clippy --all-targets -- -D warnings
+cargo test
+cargo run -- --headless 1200 --screenshot /tmp/jackal.png
+cargo run -- --stage 6 --mute
 ```
 
-Headless mode starts a one-player game at frame 120 and holds up/A after frame
-500. Tests also use clearly marked state injection to reach stages and boss areas;
-they are execution checks, not evidence of a complete human playthrough.
-All 12 tests pass, covering both players, all six stages and boss areas, stage-clear
-transitions, continuing, the final ending screen, and starting the next loop.
-See `analysis/verification.txt` for the exact scope and test interventions.
+Tests compare original reference pixels for helicopter deployment, scene transitions,
+ending and HUD; thousands of ticks of camera, enemy, boss and projectile behavior;
+prisoner states; all six initial maps; destruction; campaign flow and asset validation.
+Fixtures are produced by isolated historical execution, not copied from the new
+implementation. Campaign tests accelerate progress using controlled damage and
+camera placement; they do not establish an unassisted playthrough of every stage.
 
-Rendering uses complete-frame composition and original timing annotations for
-the story split, not cycle-exact PPU simulation. Audio register changes are
-applied at frame boundaries. Palette/emphasis and sprite overflow behavior are
-approximations. Native captures are not pixel/audio differential comparisons
-against original hardware. The initial sandbox blocked the display connection;
-after access was enabled, a live X11 window was verified with application class
-`JackalNative` and full opacity. The user confirmed the game runs. Audio-device
-playback has not been independently checked.
+Headless mode starts at tick 60, then drives upward with gunfire and periodic
+grenades after tick 240. It is a smoke-test input script, not an autoplayer.
+`--stage 1..6` selects a stage directly. Screenshots are PNG.
+
+## Evidence and fidelity boundary
+
+Maps, sprite definitions, placements, health/armor/score tables, selected movement
+and weapon rules, and sound sequences were recovered from the original program.
+Reference fixtures come from the previous native static translation, not captures
+from original hardware. The background comparisons exclude foreground objects
+and the HUD; movement permits one pixel of the reference's cosmetic bob.
+
+The new implementation replaces the original instruction translation entirely.
+Presentation, camera, weapons and recovered actors have dedicated reference tests.
+Shared actor allocation and priority, boss controllers, co-op target selection,
+reinforcement waves and headquarters transitions have dedicated regression coverage.
+Full-scene comparisons under arbitrary graphics upload contention still need
+broader validation. Audio retains the historical
+reference synthesizer's timing/filter approximation. The modern renderer preserves
+sprite ordering and the shared part budget while omitting hardware scanline dropout.
+A passing test establishes
+only its recorded scenario, not complete hardware or whole-game parity.
+
+`analysis/native-recovery.txt` and `analysis/native-entities.json` preserve detailed
+recovery evidence. Older analysis files document the historical investigation,
+including the unsuccessful REA/Ghidra deep-analysis attempt; they are not runtime
+inputs. The previous translated implementation remains available in Git history.
+
+Optional research exporters under `tools/reference/` retrieve the historical
+reference revision into temporary directories. They reproduce assets and fixtures
+without reintroducing its code or binary data into the game. See
+[the export guide](tools/reference/README.md). Normal builds need none of these tools.

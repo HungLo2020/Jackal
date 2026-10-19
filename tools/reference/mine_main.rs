@@ -1,0 +1,2 @@
+mod audio;mod game;mod video;use game::Game;
+fn main(){let mut g=Game::new(false).unwrap();g.memory.fill(0);g.memory[0x530]=1;g.memory[0x720]=53;g.memory[0x710]=120;g.memory[0x560]=120;g.memory[0x570]=120;let mut samples=vec![];for tick in 0..240 {let x=if tick<40{120}else if tick<80{199}else if tick<120{200}else{160};g.memory[0x5b0]=x;g.memory[0x1a]=tick as u8;g.actor_call(0xacf8,0).unwrap();samples.push(serde_json::json!({"tick":tick,"player_x":x,"sprite":g.memory[0x500],"palette":g.memory[0x540]}));}println!("{}",serde_json::to_string(&samples).unwrap());}

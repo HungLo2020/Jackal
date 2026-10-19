@@ -1,0 +1,919 @@
+{
+  "stages": [
+    [
+      {
+        "command": "palette_prepare",
+        "distance": 2674,
+        "sprites": "textures/phases/stage_01/palette_prepare/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_01/palette_prepare/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_prepare",
+        "distance": 2674,
+        "sprites": "textures/phases/stage_01/palette_prepare/frame_000_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_01/palette_prepare/frame_002_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2738,
+        "sprites": "textures/phases/stage_01/palette_change/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_01/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2738,
+        "sprites": "textures/phases/stage_01/palette_change/frame_002_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_01/palette_change/frame_000_tiles.png"
+      }
+    ],
+    [
+      {
+        "command": "palette_prepare",
+        "distance": 2194,
+        "sprites": "textures/phases/stage_02/palette_prepare/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_02/palette_prepare/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_prepare",
+        "distance": 2194,
+        "sprites": "textures/phases/stage_02/palette_prepare/frame_000_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_02/palette_prepare/frame_002_tiles.png"
+      }
+    ],
+    [
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_03/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_000_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_03/palette_change/frame_002_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_003_sprites.png",
+        "tick_offset": 3,
+        "tiles": "textures/phases/stage_03/palette_change/frame_003_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_004_sprites.png",
+        "tick_offset": 4,
+        "tiles": "textures/phases/stage_03/palette_change/frame_004_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_005_sprites.png",
+        "tick_offset": 5,
+        "tiles": "textures/phases/stage_03/palette_change/frame_005_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_006_sprites.png",
+        "tick_offset": 6,
+        "tiles": "textures/phases/stage_03/palette_change/frame_006_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_008_sprites.png",
+        "tick_offset": 8,
+        "tiles": "textures/phases/stage_03/palette_change/frame_008_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_009_sprites.png",
+        "tick_offset": 9,
+        "tiles": "textures/phases/stage_03/palette_change/frame_009_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_010_sprites.png",
+        "tick_offset": 10,
+        "tiles": "textures/phases/stage_03/palette_change/frame_010_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_011_sprites.png",
+        "tick_offset": 11,
+        "tiles": "textures/phases/stage_03/palette_change/frame_011_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_012_sprites.png",
+        "tick_offset": 12,
+        "tiles": "textures/phases/stage_03/palette_change/frame_012_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_013_sprites.png",
+        "tick_offset": 13,
+        "tiles": "textures/phases/stage_03/palette_change/frame_013_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_014_sprites.png",
+        "tick_offset": 14,
+        "tiles": "textures/phases/stage_03/palette_change/frame_014_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_016_sprites.png",
+        "tick_offset": 16,
+        "tiles": "textures/phases/stage_03/palette_change/frame_016_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_017_sprites.png",
+        "tick_offset": 17,
+        "tiles": "textures/phases/stage_03/palette_change/frame_017_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_018_sprites.png",
+        "tick_offset": 18,
+        "tiles": "textures/phases/stage_03/palette_change/frame_018_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_019_sprites.png",
+        "tick_offset": 19,
+        "tiles": "textures/phases/stage_03/palette_change/frame_019_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_020_sprites.png",
+        "tick_offset": 20,
+        "tiles": "textures/phases/stage_03/palette_change/frame_020_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_021_sprites.png",
+        "tick_offset": 21,
+        "tiles": "textures/phases/stage_03/palette_change/frame_021_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_022_sprites.png",
+        "tick_offset": 22,
+        "tiles": "textures/phases/stage_03/palette_change/frame_022_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_024_sprites.png",
+        "tick_offset": 24,
+        "tiles": "textures/phases/stage_03/palette_change/frame_024_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_025_sprites.png",
+        "tick_offset": 25,
+        "tiles": "textures/phases/stage_03/palette_change/frame_025_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_026_sprites.png",
+        "tick_offset": 26,
+        "tiles": "textures/phases/stage_03/palette_change/frame_026_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_027_sprites.png",
+        "tick_offset": 27,
+        "tiles": "textures/phases/stage_03/palette_change/frame_027_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_028_sprites.png",
+        "tick_offset": 28,
+        "tiles": "textures/phases/stage_03/palette_change/frame_028_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_029_sprites.png",
+        "tick_offset": 29,
+        "tiles": "textures/phases/stage_03/palette_change/frame_029_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2739,
+        "sprites": "textures/phases/stage_03/palette_change/frame_030_sprites.png",
+        "tick_offset": 30,
+        "tiles": "textures/phases/stage_03/palette_change/frame_030_tiles.png"
+      }
+    ],
+    [
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_003_sprites.png",
+        "tick_offset": 3,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_004_sprites.png",
+        "tick_offset": 4,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_005_sprites.png",
+        "tick_offset": 5,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_006_sprites.png",
+        "tick_offset": 6,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_008_sprites.png",
+        "tick_offset": 8,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_009_sprites.png",
+        "tick_offset": 9,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_010_sprites.png",
+        "tick_offset": 10,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_011_sprites.png",
+        "tick_offset": 11,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_012_sprites.png",
+        "tick_offset": 12,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_013_sprites.png",
+        "tick_offset": 13,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_014_sprites.png",
+        "tick_offset": 14,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_016_sprites.png",
+        "tick_offset": 16,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_017_sprites.png",
+        "tick_offset": 17,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_018_sprites.png",
+        "tick_offset": 18,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_019_sprites.png",
+        "tick_offset": 19,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_020_sprites.png",
+        "tick_offset": 20,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_021_sprites.png",
+        "tick_offset": 21,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_022_sprites.png",
+        "tick_offset": 22,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_024_sprites.png",
+        "tick_offset": 24,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_025_sprites.png",
+        "tick_offset": 25,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_026_sprites.png",
+        "tick_offset": 26,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_027_sprites.png",
+        "tick_offset": 27,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_028_sprites.png",
+        "tick_offset": 28,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_029_sprites.png",
+        "tick_offset": 29,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_030_sprites.png",
+        "tick_offset": 30,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_032_sprites.png",
+        "tick_offset": 32,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_033_sprites.png",
+        "tick_offset": 33,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_034_sprites.png",
+        "tick_offset": 34,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_035_sprites.png",
+        "tick_offset": 35,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_04/palette_change/frame_036_sprites.png",
+        "tick_offset": 36,
+        "tiles": "textures/phases/stage_04/palette_change/frame_000_tiles.png"
+      }
+    ],
+    [
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_05/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_000_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_05/palette_change/frame_002_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_003_sprites.png",
+        "tick_offset": 3,
+        "tiles": "textures/phases/stage_05/palette_change/frame_003_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_004_sprites.png",
+        "tick_offset": 4,
+        "tiles": "textures/phases/stage_05/palette_change/frame_004_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_005_sprites.png",
+        "tick_offset": 5,
+        "tiles": "textures/phases/stage_05/palette_change/frame_005_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_006_sprites.png",
+        "tick_offset": 6,
+        "tiles": "textures/phases/stage_05/palette_change/frame_006_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_008_sprites.png",
+        "tick_offset": 8,
+        "tiles": "textures/phases/stage_05/palette_change/frame_008_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_010_sprites.png",
+        "tick_offset": 10,
+        "tiles": "textures/phases/stage_05/palette_change/frame_010_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_011_sprites.png",
+        "tick_offset": 11,
+        "tiles": "textures/phases/stage_05/palette_change/frame_011_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_012_sprites.png",
+        "tick_offset": 12,
+        "tiles": "textures/phases/stage_05/palette_change/frame_012_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_013_sprites.png",
+        "tick_offset": 13,
+        "tiles": "textures/phases/stage_05/palette_change/frame_013_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_014_sprites.png",
+        "tick_offset": 14,
+        "tiles": "textures/phases/stage_05/palette_change/frame_014_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_016_sprites.png",
+        "tick_offset": 16,
+        "tiles": "textures/phases/stage_05/palette_change/frame_016_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_017_sprites.png",
+        "tick_offset": 17,
+        "tiles": "textures/phases/stage_05/palette_change/frame_017_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_018_sprites.png",
+        "tick_offset": 18,
+        "tiles": "textures/phases/stage_05/palette_change/frame_018_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_019_sprites.png",
+        "tick_offset": 19,
+        "tiles": "textures/phases/stage_05/palette_change/frame_019_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_020_sprites.png",
+        "tick_offset": 20,
+        "tiles": "textures/phases/stage_05/palette_change/frame_020_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_021_sprites.png",
+        "tick_offset": 21,
+        "tiles": "textures/phases/stage_05/palette_change/frame_021_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_022_sprites.png",
+        "tick_offset": 22,
+        "tiles": "textures/phases/stage_05/palette_change/frame_022_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_024_sprites.png",
+        "tick_offset": 24,
+        "tiles": "textures/phases/stage_05/palette_change/frame_024_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_025_sprites.png",
+        "tick_offset": 25,
+        "tiles": "textures/phases/stage_05/palette_change/frame_025_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_026_sprites.png",
+        "tick_offset": 26,
+        "tiles": "textures/phases/stage_05/palette_change/frame_026_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_027_sprites.png",
+        "tick_offset": 27,
+        "tiles": "textures/phases/stage_05/palette_change/frame_027_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_028_sprites.png",
+        "tick_offset": 28,
+        "tiles": "textures/phases/stage_05/palette_change/frame_028_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_029_sprites.png",
+        "tick_offset": 29,
+        "tiles": "textures/phases/stage_05/palette_change/frame_029_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_030_sprites.png",
+        "tick_offset": 30,
+        "tiles": "textures/phases/stage_05/palette_change/frame_030_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_032_sprites.png",
+        "tick_offset": 32,
+        "tiles": "textures/phases/stage_05/palette_change/frame_032_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_033_sprites.png",
+        "tick_offset": 33,
+        "tiles": "textures/phases/stage_05/palette_change/frame_033_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_034_sprites.png",
+        "tick_offset": 34,
+        "tiles": "textures/phases/stage_05/palette_change/frame_034_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_035_sprites.png",
+        "tick_offset": 35,
+        "tiles": "textures/phases/stage_05/palette_change/frame_035_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_036_sprites.png",
+        "tick_offset": 36,
+        "tiles": "textures/phases/stage_05/palette_change/frame_036_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_037_sprites.png",
+        "tick_offset": 37,
+        "tiles": "textures/phases/stage_05/palette_change/frame_037_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_038_sprites.png",
+        "tick_offset": 38,
+        "tiles": "textures/phases/stage_05/palette_change/frame_038_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_040_sprites.png",
+        "tick_offset": 40,
+        "tiles": "textures/phases/stage_05/palette_change/frame_040_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2707,
+        "sprites": "textures/phases/stage_05/palette_change/frame_041_sprites.png",
+        "tick_offset": 41,
+        "tiles": "textures/phases/stage_05/palette_change/frame_041_tiles.png"
+      }
+    ],
+    [
+      {
+        "command": "palette_prepare",
+        "distance": 1518,
+        "sprites": "textures/phases/stage_06/palette_prepare/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_06/palette_prepare/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_prepare",
+        "distance": 1518,
+        "sprites": "textures/phases/stage_06/palette_prepare/frame_000_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_06/palette_prepare/frame_002_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/phases/stage_06/palette_change/frame_000_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_000_sprites.png",
+        "tick_offset": 2,
+        "tiles": "textures/phases/stage_06/palette_change/frame_002_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_003_sprites.png",
+        "tick_offset": 3,
+        "tiles": "textures/phases/stage_06/palette_change/frame_003_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_004_sprites.png",
+        "tick_offset": 4,
+        "tiles": "textures/phases/stage_06/palette_change/frame_004_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_005_sprites.png",
+        "tick_offset": 5,
+        "tiles": "textures/phases/stage_06/palette_change/frame_005_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_006_sprites.png",
+        "tick_offset": 6,
+        "tiles": "textures/phases/stage_06/palette_change/frame_006_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_008_sprites.png",
+        "tick_offset": 8,
+        "tiles": "textures/phases/stage_06/palette_change/frame_008_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_009_sprites.png",
+        "tick_offset": 9,
+        "tiles": "textures/phases/stage_06/palette_change/frame_009_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_010_sprites.png",
+        "tick_offset": 10,
+        "tiles": "textures/phases/stage_06/palette_change/frame_010_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_011_sprites.png",
+        "tick_offset": 11,
+        "tiles": "textures/phases/stage_06/palette_change/frame_011_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_012_sprites.png",
+        "tick_offset": 12,
+        "tiles": "textures/phases/stage_06/palette_change/frame_012_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_013_sprites.png",
+        "tick_offset": 13,
+        "tiles": "textures/phases/stage_06/palette_change/frame_013_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_014_sprites.png",
+        "tick_offset": 14,
+        "tiles": "textures/phases/stage_06/palette_change/frame_014_tiles.png"
+      },
+      {
+        "command": "palette_change",
+        "distance": 2947,
+        "sprites": "textures/phases/stage_06/palette_change/frame_016_sprites.png",
+        "tick_offset": 16,
+        "tiles": "textures/phases/stage_06/palette_change/frame_016_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_000_sprites.png",
+        "tick_offset": 0,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_003_sprites.png",
+        "tick_offset": 3,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_004_sprites.png",
+        "tick_offset": 4,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_005_sprites.png",
+        "tick_offset": 5,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_006_sprites.png",
+        "tick_offset": 6,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_007_sprites.png",
+        "tick_offset": 7,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_008_sprites.png",
+        "tick_offset": 8,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_009_sprites.png",
+        "tick_offset": 9,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_010_sprites.png",
+        "tick_offset": 10,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_011_sprites.png",
+        "tick_offset": 11,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_012_sprites.png",
+        "tick_offset": 12,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_013_sprites.png",
+        "tick_offset": 13,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_014_sprites.png",
+        "tick_offset": 14,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      },
+      {
+        "command": "headquarters_gate",
+        "distance": 3008,
+        "sprites": "textures/hq_gate/frame_015_sprites.png",
+        "tick_offset": 15,
+        "tiles": "textures/hq_gate/frame_000_tiles.png"
+      }
+    ]
+  ]
+}

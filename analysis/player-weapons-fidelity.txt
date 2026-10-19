@@ -1,0 +1,41 @@
+Player weapons: recovery evidence and native mapping
+
+Source: fixed bank ED2C..F07F in original game data, historical reference commit
+ e8fc3391d5b27fcd98b82fd27984141840449708.
+Reproduce: python3 tools/reference/export_player_weapons.py --check
+Captured scenarios: gun, grenade/rocket in all eight directions, both blast-wave axes.
+All positions, frames, flips and active lifetimes are compared frame-by-frame in
+ tests/player_weapons.rs. This includes initialization and removal states.
+
+Gun ED2C: initialization frame stationary; timer16, speed6 upward. Fifteen travel
+frames cover90 pixels. Timer expiry stops motion and shows frame17 for5ticks, then
+removes the shot. Frame16 in flight. Direct enemy hits remove bullets (E3EA), while
+terrain/fuse end shows impact (ED7A); callers must distinguish those outcomes.
+
+Grenade EDE8: speed2 cardinal,1.5 each diagonal,40 travel ticks after initialization
+(50 at final HQ). Flight frames7/8/7 and global-frame-based flips are recovered.
+Pending impact state then central explosion frames25/26/27,8ticks each. Slot stays
+reserved through the explosion. Total normal lifetime66 updates including init/remove.
+
+Rocket EFBA: speed4 cardinal,2.75 diagonal (not3);22 travel ticks after initialization
+(32 at final HQ). Frames13/14/15 with original eight-way flips; no white primitive.
+After pending impact, same24tick central explosion. Total normal lifetime48 updates.
+
+Upgrades EF42/F039: TwoWay creates one horizontal wave actor; FourWay creates an
+additional vertical actor. Wave has initialization,40active updates and removal.
+Positions alternate relative to origin: +4,-6,+8,-10,...,+80,-82. It does not sweep
+all space between those points. Frames9 untiltimer<24,10 untiltimer<8,then11.
+Vertical flip toggles on global tick multiples of4. Wave actor lifetime42 updates.
+Normal secondary slot can be reused once central blast ends even if wave persists.
+
+Collision E414..E4D2: unarmored enemies are killed directly by secondary hits;
+armored HP receives5damage from the direct projectile in flight only. Armored
+objects reject central explosion states and wave slots. Original interaction flag
+0x10 lets a secondary pass through the target; exported secondary_passes_through
+preserves this. Other direct collisions switch grenade/rocket to pending explosion.
+Hitboxes are axis-aligned and secondary adds4pixels to original target half extents.
+Wave collisions must use its current alternating position, never a swept line.
+
+These isolated traces prove phase behavior on clear terrain and fixed camera.
+They do not establish all integration timing under scrolling, actor slot pressure,
+co-op shared slots, or every terrain transition; those need separate scene tests.

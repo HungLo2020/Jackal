@@ -1,0 +1,117 @@
+{
+  "frames": [
+    {
+      "boss_alive": 255,
+      "command": 10,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 217,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 0,
+      "upload": 1
+    },
+    {
+      "boss_alive": 255,
+      "command": 10,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 218,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 1,
+      "upload": 1
+    },
+    {
+      "boss_alive": 255,
+      "command": 10,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 219,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 2,
+      "upload": 1
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 220,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 3,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 221,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 4,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 222,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 5,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 223,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 6,
+      "upload": 0
+    },
+    {
+      "boss_alive": 255,
+      "command": 0,
+      "counter": 0,
+      "explosions": [],
+      "global_tick": 224,
+      "palette_index": 0,
+      "sounds": [],
+      "state": 6,
+      "tick": 7,
+      "upload": 0
+    }
+  ],
+  "phases": [
+    {
+      "sprites": "textures/hq_building_initial_0/frame_000_sprites.png",
+      "tick_offset": 0,
+      "tiles": "textures/hq_building_initial_0/frame_000_tiles.png"
+    },
+    {
+      "sprites": "textures/hq_building_initial_0/frame_002_sprites.png",
+      "tick_offset": 2,
+      "tiles": "textures/hq_building_initial_0/frame_002_tiles.png"
+    },
+    {
+      "sprites": "textures/hq_building_initial_0/frame_004_sprites.png",
+      "tick_offset": 4,
+      "tiles": "textures/hq_building_initial_0/frame_004_tiles.png"
+    }
+  ]
+}

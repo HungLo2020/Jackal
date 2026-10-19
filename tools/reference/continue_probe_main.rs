@@ -1,0 +1,5 @@
+mod audio;mod game;mod video;
+use game::Game;
+fn started()->Game{let mut g=Game::new(false).unwrap();for f in 0..900{g.update([if f==120{8}else{0},0]).unwrap();}g}
+fn trace(g:&mut Game,label:&str,frames:usize){let mut last=[255;5];for f in 0..frames{g.update([0;2]).unwrap();let s=[g.memory[0x18],g.memory[0x19],g.memory[0x2c],g.memory[0x30],g.memory[0x31]];if s!=last{println!("{label} {f} {s:?} counters20={} 21={} 23={} 24={}",g.memory[0x20],g.memory[0x21],g.memory[0x23],g.memory[0x24]);last=s;}}}
+fn main(){let mut g=started();for cycle in 0..6{g.memory[0x31]=0;g.memory[0x32]=0;for _ in 0..120{g.update([0;2]).unwrap();}println!("cycle{} state{} vars{:?}",cycle,g.memory[0x18],&g.memory[0x18..0x34]);g.update([8,0]).unwrap();for _ in 0..180{g.update([0;2]).unwrap();}println!("after{} state{} lives{} vars{:?}",cycle,g.memory[0x18],g.memory[0x31],&g.memory[0x18..0x34]);}let mut g=started();g.memory[0x31]=0;g.memory[0x32]=0;for _ in 0..120{g.update([0;2]).unwrap();}let before=g.memory;g.update([4,0]).unwrap();for i in 0..128{if before[i]!=g.memory[i]{println!("select {i:02x}:{}->{}",before[i],g.memory[i]);}}}

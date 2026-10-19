@@ -1,0 +1,5 @@
+mod audio;mod game;mod video;
+use game::Game;
+fn started()->Game{let mut g=Game::new(false).unwrap();for f in 0..900{g.update([if f==120{8}else{0},0]).unwrap();}g}
+fn trace(g:&mut Game,label:&str,frames:usize){let mut last=[255;5];for f in 0..frames{g.update([0;2]).unwrap();let s=[g.memory[0x18],g.memory[0x19],g.memory[0x2c],g.memory[0x30],g.memory[0x31]];if s!=last{println!("{label} {f} {s:?} counters20={} 21={} 23={} 24={}",g.memory[0x20],g.memory[0x21],g.memory[0x23],g.memory[0x24]);last=s;}}}
+fn main(){let mut g=Game::new(false).unwrap();trace(&mut g,"idle",4000);let mut g=started();g.memory[0x31]=0;g.memory[0x32]=0;trace(&mut g,"dead",1800);for stage in [0,5]{let mut g=started();g.memory[0x30]=stage;g.memory[0x18]=5;g.memory[0x2c]=1;g.memory[0x34]=1;for _ in 0..90{g.update([0;2]).unwrap();}for _ in 0..5000{g.memory[0x52]=255;g.memory[0x53]=255;g.memory[0x3c]=1;g.update([3,0]).unwrap();if g.memory[0x43]>=if stage==5{13}else{11}&&g.memory[0x3a]!=0&&g.memory[0x3b]!=0{break;}}for _ in 0..600{g.memory[0x52]=255;g.memory[0x53]=255;g.update([3,0]).unwrap();}g.memory[0x3b]=0;g.memory[0x42]=0xfe;trace(&mut g,&format!("victory{stage}"),6500);}}

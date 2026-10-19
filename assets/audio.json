@@ -1,0 +1,357 @@
+{
+  "sample_rate": 44100,
+  "channels": 1,
+  "format": "PCM16",
+  "provenance": "Original Jackal sound sequence commands rendered offline from recovered driver; all top-level sound-table entries",
+  "sounds": [
+    {
+      "command": 1,
+      "file": "audio/effect_01.wav",
+      "samples": 11740,
+      "loop_start_sample": null,
+      "name": "effect_01",
+      "duration_seconds": 0.266213
+    },
+    {
+      "command": 3,
+      "file": "audio/effect_03.wav",
+      "samples": 26416,
+      "loop_start_sample": null,
+      "name": "effect_03",
+      "duration_seconds": 0.599002
+    },
+    {
+      "command": 4,
+      "file": "audio/effect_04.wav",
+      "samples": 14675,
+      "loop_start_sample": null,
+      "name": "effect_04",
+      "duration_seconds": 0.332766
+    },
+    {
+      "command": 5,
+      "file": "audio/effect_05.wav",
+      "samples": 14675,
+      "loop_start_sample": null,
+      "name": "effect_05",
+      "duration_seconds": 0.332766
+    },
+    {
+      "command": 6,
+      "file": "audio/effect_06.wav",
+      "samples": 15409,
+      "loop_start_sample": null,
+      "name": "effect_06",
+      "duration_seconds": 0.34941
+    },
+    {
+      "command": 7,
+      "file": "audio/effect_07.wav",
+      "samples": 16877,
+      "loop_start_sample": null,
+      "name": "effect_07",
+      "duration_seconds": 0.382698
+    },
+    {
+      "command": 8,
+      "file": "audio/effect_08.wav",
+      "samples": 24948,
+      "loop_start_sample": null,
+      "name": "effect_08",
+      "duration_seconds": 0.565714
+    },
+    {
+      "command": 9,
+      "file": "audio/machine_gun.wav",
+      "samples": 25682,
+      "loop_start_sample": null,
+      "name": "machine_gun",
+      "duration_seconds": 0.582358
+    },
+    {
+      "command": 10,
+      "file": "audio/effect_0a.wav",
+      "samples": 14675,
+      "loop_start_sample": null,
+      "name": "effect_0a",
+      "duration_seconds": 0.332766
+    },
+    {
+      "command": 11,
+      "file": "audio/effect_0b.wav",
+      "samples": 41092,
+      "loop_start_sample": null,
+      "name": "effect_0b",
+      "duration_seconds": 0.931791
+    },
+    {
+      "command": 12,
+      "file": "audio/effect_0c.wav",
+      "samples": 18344,
+      "loop_start_sample": null,
+      "name": "effect_0c",
+      "duration_seconds": 0.415964
+    },
+    {
+      "command": 14,
+      "file": "audio/effect_0e.wav",
+      "samples": 18344,
+      "loop_start_sample": null,
+      "name": "effect_0e",
+      "duration_seconds": 0.415964
+    },
+    {
+      "command": 16,
+      "file": "audio/effect_10.wav",
+      "samples": 31553,
+      "loop_start_sample": null,
+      "name": "effect_10",
+      "duration_seconds": 0.715488
+    },
+    {
+      "command": 17,
+      "file": "audio/grenade.wav",
+      "samples": 44761,
+      "loop_start_sample": null,
+      "name": "grenade",
+      "duration_seconds": 1.014989
+    },
+    {
+      "command": 18,
+      "file": "audio/effect_12.wav",
+      "samples": 28617,
+      "loop_start_sample": null,
+      "name": "effect_12",
+      "duration_seconds": 0.648912
+    },
+    {
+      "command": 19,
+      "file": "audio/effect_13.wav",
+      "samples": 44761,
+      "loop_start_sample": null,
+      "name": "effect_13",
+      "duration_seconds": 1.014989
+    },
+    {
+      "command": 21,
+      "file": "audio/explosion.wav",
+      "samples": 50631,
+      "loop_start_sample": null,
+      "name": "explosion",
+      "duration_seconds": 1.148095
+    },
+    {
+      "command": 22,
+      "file": "audio/effect_16.wav",
+      "samples": 53566,
+      "loop_start_sample": null,
+      "name": "effect_16",
+      "duration_seconds": 1.214649
+    },
+    {
+      "command": 23,
+      "file": "audio/effect_17.wav",
+      "samples": 51365,
+      "loop_start_sample": null,
+      "name": "effect_17",
+      "duration_seconds": 1.164739
+    },
+    {
+      "command": 25,
+      "file": "audio/effect_19.wav",
+      "samples": 43293,
+      "loop_start_sample": null,
+      "name": "effect_19",
+      "duration_seconds": 0.981701
+    },
+    {
+      "command": 27,
+      "file": "audio/effect_1b.wav",
+      "samples": 41826,
+      "loop_start_sample": null,
+      "name": "effect_1b",
+      "duration_seconds": 0.948435
+    },
+    {
+      "command": 29,
+      "file": "audio/rescue.wav",
+      "samples": 22747,
+      "loop_start_sample": null,
+      "name": "rescue",
+      "duration_seconds": 0.515805
+    },
+    {
+      "command": 31,
+      "file": "audio/delivery.wav",
+      "samples": 22013,
+      "loop_start_sample": null,
+      "name": "delivery",
+      "duration_seconds": 0.499161
+    },
+    {
+      "command": 33,
+      "file": "audio/pickup.wav",
+      "samples": 38890,
+      "loop_start_sample": null,
+      "name": "pickup",
+      "duration_seconds": 0.881859
+    },
+    {
+      "command": 35,
+      "file": "audio/boss.wav",
+      "samples": 1899786,
+      "loop_start_sample": 490906,
+      "name": "boss",
+      "duration_seconds": 43.079048
+    },
+    {
+      "command": 37,
+      "file": "audio/player_death.wav",
+      "samples": 80717,
+      "loop_start_sample": null,
+      "name": "player_death",
+      "duration_seconds": 1.830317
+    },
+    {
+      "command": 38,
+      "file": "audio/effect_26.wav",
+      "samples": 38157,
+      "loop_start_sample": null,
+      "name": "effect_26",
+      "duration_seconds": 0.865238
+    },
+    {
+      "command": 39,
+      "file": "audio/effect_27.wav",
+      "samples": 226741,
+      "loop_start_sample": null,
+      "name": "effect_27",
+      "duration_seconds": 5.141519
+    },
+    {
+      "command": 40,
+      "file": "audio/effect_28.wav",
+      "samples": 252424,
+      "loop_start_sample": 248021,
+      "name": "effect_28",
+      "duration_seconds": 5.7239
+    },
+    {
+      "command": 42,
+      "file": "audio/effect_2a.wav",
+      "samples": 46228,
+      "loop_start_sample": null,
+      "name": "effect_2a",
+      "duration_seconds": 1.048254
+    },
+    {
+      "command": 45,
+      "file": "audio/effect_2d.wav",
+      "samples": 15409,
+      "loop_start_sample": null,
+      "name": "effect_2d",
+      "duration_seconds": 0.34941
+    },
+    {
+      "command": 46,
+      "file": "audio/effect_2e.wav",
+      "samples": 15409,
+      "loop_start_sample": null,
+      "name": "effect_2e",
+      "duration_seconds": 0.34941
+    },
+    {
+      "command": 48,
+      "file": "audio/title.wav",
+      "samples": 829918,
+      "loop_start_sample": null,
+      "name": "title",
+      "duration_seconds": 18.819002
+    },
+    {
+      "command": 52,
+      "file": "audio/briefing.wav",
+      "samples": 2254941,
+      "loop_start_sample": 564285,
+      "name": "briefing",
+      "duration_seconds": 51.132449
+    },
+    {
+      "command": 56,
+      "file": "audio/stage_1.wav",
+      "samples": 1936476,
+      "loop_start_sample": 245820,
+      "name": "stage_1",
+      "duration_seconds": 43.91102
+    },
+    {
+      "command": 60,
+      "file": "audio/stage_2.wav",
+      "samples": 4308091,
+      "loop_start_sample": 785890,
+      "name": "stage_2",
+      "duration_seconds": 97.689138
+    },
+    {
+      "command": 64,
+      "file": "audio/stage_3.wav",
+      "samples": 1502805,
+      "loop_start_sample": 23481,
+      "name": "stage_3",
+      "duration_seconds": 34.077211
+    },
+    {
+      "command": 68,
+      "file": "audio/alternate_stage.wav",
+      "samples": 1845486,
+      "loop_start_sample": 436606,
+      "name": "alternate_stage",
+      "duration_seconds": 41.847755
+    },
+    {
+      "command": 72,
+      "file": "audio/helicopter.wav",
+      "samples": 2070026,
+      "loop_start_sample": 661146,
+      "name": "helicopter",
+      "duration_seconds": 46.939365
+    },
+    {
+      "command": 76,
+      "file": "audio/victory.wav",
+      "samples": 417527,
+      "loop_start_sample": null,
+      "name": "victory",
+      "duration_seconds": 9.467732
+    },
+    {
+      "command": 80,
+      "file": "audio/game_over.wav",
+      "samples": 299387,
+      "loop_start_sample": null,
+      "name": "game_over",
+      "duration_seconds": 6.788821
+    },
+    {
+      "command": 84,
+      "file": "audio/ending.wav",
+      "samples": 14881295,
+      "loop_start_sample": 1074271,
+      "name": "ending",
+      "duration_seconds": 337.444331
+    },
+    {
+      "command": 88,
+      "file": "audio/effect_58.wav",
+      "samples": 34488,
+      "loop_start_sample": null,
+      "name": "effect_58",
+      "duration_seconds": 0.782041
+    }
+  ],
+  "export_notes": [
+    "All 43 top-level records in the original sound table, including music, effects, pause tone, and control sounds. Constituent channel records are combined by the original sequencer.",
+    "Loop boundaries detected from repeated complete sequencer state; full intro preserved and repeat begins at loop_start_sample. Non-looping clips include 15 frames of release tail.",
+    "Offline five-channel synthesis includes both original DMC samples. Frame-timed synthesis approximates analog filtering; WAV playback requires no ROM, sequencer, or console state."
+  ]
+}
