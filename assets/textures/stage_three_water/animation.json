@@ -1,0 +1,39 @@
+{
+  "early": [
+    [
+      "textures/stage_three_water/water_01.png",
+      "textures/stage_three_water/water_02.png",
+      "textures/stage_three_water/water_03.png",
+      "textures/stage_three_water/water_04.png",
+      "textures/stage_three_water/water_05.png",
+      "textures/stage_three_water/water_06.png"
+    ],
+    [
+      "textures/stage_three_water/water_07.png",
+      "textures/stage_three_water/water_08.png",
+      "textures/stage_three_water/water_09.png",
+      "textures/stage_three_water/water_10.png",
+      "textures/stage_three_water/water_11.png",
+      "textures/stage_three_water/water_00.png"
+    ]
+  ],
+  "initial": "textures/stage_three_water/water_00.png",
+  "late": [
+    [
+      "textures/stage_three_water/water_19.png",
+      "textures/stage_three_water/water_20.png",
+      "textures/stage_three_water/water_21.png",
+      "textures/stage_three_water/water_22.png",
+      "textures/stage_three_water/water_23.png",
+      "textures/stage_three_water/water_12.png"
+    ],
+    [
+      "textures/stage_three_water/water_13.png",
+      "textures/stage_three_water/water_14.png",
+      "textures/stage_three_water/water_15.png",
+      "textures/stage_three_water/water_16.png",
+      "textures/stage_three_water/water_17.png",
+      "textures/stage_three_water/water_18.png"
+    ]
+  ]
+}

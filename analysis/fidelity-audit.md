@@ -1,5 +1,39 @@
 # Native port fidelity audit
 
+## Scrolled map alignment correction (2026-10-19)
+
+The previous start-screen checks missed a cumulative map export error. Original
+CD88-CD90 restarts every source page at subrow 2, omitting two 8-pixel rows.
+The exporter retained those rows, while events correctly used 240-pixel pages.
+This displaced background bases from turrets and other actors by another 16 pixels
+per page. All six maps now export 30 rows per page, including corresponding palette
+and collision rows. Initial camera origin is adjusted to preserve the start view.
+
+The same audit corrected bottom-entry event Y from 224 to the original 239
+(F17A-F18C), with top/bottom spawn tests at multiple event distances. It also
+corrected actor palette composition: original bank1:81B3-81B9 ORs actor palette
+bits with metasprite attributes. Replacing the descriptor palette caused incorrect
+enemy grenade colors and infantry hit flashes. Explicit pixel tests exercise both
+native sprite rendering paths.
+
+New independent scene fixtures cover 54 scroll positions across all six stages,
+including 27 gun/turret scenes. Exact pixel comparisons cover rows 0–231 after
+settling the original video pipeline. The original bottom eight-row streaming
+strip is explicitly outside these geometry assertions. Initial art/palette phases
+are fixed for these comparisons; live scenery animation has separate timing and
+artwork checks. An integration test additionally spawns the captured stationary
+turret through native game logic and checks its original event/world anchor.
+
+The scrolled comparisons also exposed missing stage-three water updates. A native
+scheduler now preserves the original stage-entry countdown, alternating six-part
+uploads, and interruption by the late palette transfer. Its 499-frame original
+trace and 24 deduplicated PNG atlases cover the initial delay and eleven uploads.
+The original exporter reproduces these assets and fixtures exactly. Loading,
+pause, and other-stage behavior are tested separately. A further 2,368-frame
+scrolling trace checks water patterns and colors while map transfers and timed
+palette cycles compete for the graphics-update budget.
+
+
 ## Current restoration status (2026-10-18)
 
 The helicopter deployment and original presentation flow are restored, including
@@ -270,3 +304,25 @@ the full relevant stage, without guessing from visual appearance. Reproduce
 with `python3 tools/reference/check_background_priority.py --check`. Native
 tests cover the overlapping-sprite masking rule and enforce the bounded
 asset/stage/palette assumptions. All 11 renderer tests pass.
+
+### October 2026 scrolling and palette regression audit
+
+The original CD7A..CD90 map streamer skips two source tile rows from every map
+page: each page covers 240 world pixels, not 256. The corrected exported geometry
+now matches 54 settled original backgrounds across all six stages exactly in
+rows 0–231, plus 27 original turret composites. The bottom eight rows are the
+original nametable update strip; the fixtures retain those pixels but exclude
+that documented streaming boundary. A separate test invokes native event
+spawning and checks its stationary turret anchor against original world position.
+
+The audit also recovered DDB0..DE26 timed palettes: four phases in page ranges
+9–10, 7–8, 8–9, 9–10, 9–10, and 4–5 respectively. Native PNG swatches and the
+scheduler match every timer request and delivered palette in all six scrolling
+traces. This includes the 33-update cadence, next-update visibility, row-transfer
+contention, and F1 preparation freeze. Original palette composition uses OR for
+sprite attributes; replacing the base palette incorrectly was separately fixed.
+
+Known bounded limitation: actor-generated graphics command bytes are not yet
+accumulated in the palette scheduler's shared queue budget. Normal map-streaming
+contention is recovered and tested; simultaneous patch-update contention can
+still shift an animation request. This does not remove any palette phase.

@@ -1,0 +1,623 @@
+[
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 33,
+      "palette": 2,
+      "source_type": 5,
+      "x": 112,
+      "y": 110
+    },
+    "camera_x": 0,
+    "distance": 480,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_480",
+    "stage": 0
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 208,
+      "y": 206
+    },
+    "camera_x": 0,
+    "distance": 720,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_720",
+    "stage": 0
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 960,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_960",
+    "stage": 0
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1040,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_1040",
+    "stage": 0
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1200,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_1200",
+    "stage": 0
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1440,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_1440",
+    "stage": 0
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1680,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_1680",
+    "stage": 0
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 208,
+      "y": 174
+    },
+    "camera_x": 0,
+    "distance": 1920,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_1920",
+    "stage": 0
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 33,
+      "palette": 2,
+      "source_type": 5,
+      "x": 80,
+      "y": 204
+    },
+    "camera_x": 0,
+    "distance": 2160,
+    "fixed_initial_art_phase": true,
+    "name": "stage_1_distance_2160",
+    "stage": 0
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 176,
+      "y": 206
+    },
+    "camera_x": 128,
+    "distance": 480,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_480",
+    "stage": 1
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 2,
+      "source_type": 6,
+      "x": 112,
+      "y": 174
+    },
+    "camera_x": 128,
+    "distance": 720,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_720",
+    "stage": 1
+  },
+  {
+    "actor": null,
+    "camera_x": 128,
+    "distance": 960,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_960",
+    "stage": 1
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 2,
+      "source_type": 5,
+      "x": 176,
+      "y": 46
+    },
+    "camera_x": 128,
+    "distance": 1040,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_1040",
+    "stage": 1
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 28,
+      "palette": 2,
+      "source_type": 5,
+      "x": 176,
+      "y": 206
+    },
+    "camera_x": 128,
+    "distance": 1200,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_1200",
+    "stage": 1
+  },
+  {
+    "actor": null,
+    "camera_x": 128,
+    "distance": 1440,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_1440",
+    "stage": 1
+  },
+  {
+    "actor": null,
+    "camera_x": 128,
+    "distance": 1680,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_1680",
+    "stage": 1
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 2,
+      "source_type": 5,
+      "x": 112,
+      "y": 78
+    },
+    "camera_x": 128,
+    "distance": 1920,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_1920",
+    "stage": 1
+  },
+  {
+    "actor": null,
+    "camera_x": 128,
+    "distance": 2160,
+    "fixed_initial_art_phase": true,
+    "name": "stage_2_distance_2160",
+    "stage": 1
+  },
+  {
+    "actor": null,
+    "camera_x": 68,
+    "distance": 480,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_480",
+    "stage": 2
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 28,
+      "palette": 2,
+      "source_type": 5,
+      "x": 204,
+      "y": 206
+    },
+    "camera_x": 68,
+    "distance": 720,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_720",
+    "stage": 2
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 2,
+      "source_type": 6,
+      "x": 76,
+      "y": 142
+    },
+    "camera_x": 68,
+    "distance": 960,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_960",
+    "stage": 2
+  },
+  {
+    "actor": null,
+    "camera_x": 68,
+    "distance": 1040,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_1040",
+    "stage": 2
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 236,
+      "y": 142
+    },
+    "camera_x": 68,
+    "distance": 1200,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_1200",
+    "stage": 2
+  },
+  {
+    "actor": null,
+    "camera_x": 68,
+    "distance": 1440,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_1440",
+    "stage": 2
+  },
+  {
+    "actor": null,
+    "camera_x": 68,
+    "distance": 1680,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_1680",
+    "stage": 2
+  },
+  {
+    "actor": null,
+    "camera_x": 68,
+    "distance": 1920,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_1920",
+    "stage": 2
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 204,
+      "y": 78
+    },
+    "camera_x": 68,
+    "distance": 2160,
+    "fixed_initial_art_phase": true,
+    "name": "stage_3_distance_2160",
+    "stage": 2
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 108,
+      "palette": 0,
+      "source_type": 45,
+      "x": 224,
+      "y": 32
+    },
+    "camera_x": 0,
+    "distance": 480,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_480",
+    "stage": 3
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 720,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_720",
+    "stage": 3
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 176,
+      "y": 142
+    },
+    "camera_x": 0,
+    "distance": 960,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_960",
+    "stage": 3
+  },
+  {
+    "actor": {
+      "flips": 128,
+      "frame": 124,
+      "palette": 0,
+      "source_type": 47,
+      "x": 216,
+      "y": 112
+    },
+    "camera_x": 0,
+    "distance": 1040,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_1040",
+    "stage": 3
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1200,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_1200",
+    "stage": 3
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1440,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_1440",
+    "stage": 3
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 28,
+      "palette": 2,
+      "source_type": 5,
+      "x": 208,
+      "y": 206
+    },
+    "camera_x": 0,
+    "distance": 1680,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_1680",
+    "stage": 3
+  },
+  {
+    "actor": null,
+    "camera_x": 0,
+    "distance": 1920,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_1920",
+    "stage": 3
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 103,
+      "palette": 0,
+      "source_type": 43,
+      "x": 224,
+      "y": 96
+    },
+    "camera_x": 0,
+    "distance": 2160,
+    "fixed_initial_art_phase": true,
+    "name": "stage_4_distance_2160",
+    "stage": 3
+  },
+  {
+    "actor": null,
+    "camera_x": 144,
+    "distance": 480,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_480",
+    "stage": 4
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 192,
+      "y": 174
+    },
+    "camera_x": 144,
+    "distance": 720,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_720",
+    "stage": 4
+  },
+  {
+    "actor": null,
+    "camera_x": 144,
+    "distance": 960,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_960",
+    "stage": 4
+  },
+  {
+    "actor": null,
+    "camera_x": 144,
+    "distance": 1040,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_1040",
+    "stage": 4
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 131,
+      "palette": 0,
+      "source_type": 12,
+      "x": 224,
+      "y": 112
+    },
+    "camera_x": 144,
+    "distance": 1200,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_1200",
+    "stage": 4
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 2,
+      "source_type": 5,
+      "x": 96,
+      "y": 110
+    },
+    "camera_x": 144,
+    "distance": 1440,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_1440",
+    "stage": 4
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 6,
+      "x": 224,
+      "y": 174
+    },
+    "camera_x": 144,
+    "distance": 1680,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_1680",
+    "stage": 4
+  },
+  {
+    "actor": null,
+    "camera_x": 144,
+    "distance": 1920,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_1920",
+    "stage": 4
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 29,
+      "palette": 2,
+      "source_type": 5,
+      "x": 224,
+      "y": 206
+    },
+    "camera_x": 144,
+    "distance": 2160,
+    "fixed_initial_art_phase": true,
+    "name": "stage_5_distance_2160",
+    "stage": 4
+  },
+  {
+    "actor": null,
+    "camera_x": 205,
+    "distance": 480,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_480",
+    "stage": 5
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 33,
+      "palette": 0,
+      "source_type": 5,
+      "x": 103,
+      "y": 80
+    },
+    "camera_x": 205,
+    "distance": 720,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_720",
+    "stage": 5
+  },
+  {
+    "actor": null,
+    "camera_x": 205,
+    "distance": 960,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_960",
+    "stage": 5
+  },
+  {
+    "actor": null,
+    "camera_x": 205,
+    "distance": 1040,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_1040",
+    "stage": 5
+  },
+  {
+    "actor": {
+      "flips": 64,
+      "frame": 32,
+      "palette": 0,
+      "source_type": 5,
+      "x": 199,
+      "y": 111
+    },
+    "camera_x": 205,
+    "distance": 1200,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_1200",
+    "stage": 5
+  },
+  {
+    "actor": null,
+    "camera_x": 205,
+    "distance": 1440,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_1440",
+    "stage": 5
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 0,
+      "source_type": 5,
+      "x": 71,
+      "y": 176
+    },
+    "camera_x": 205,
+    "distance": 1680,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_1680",
+    "stage": 5
+  },
+  {
+    "actor": null,
+    "camera_x": 205,
+    "distance": 1920,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_1920",
+    "stage": 5
+  },
+  {
+    "actor": {
+      "flips": 0,
+      "frame": 30,
+      "palette": 0,
+      "source_type": 5,
+      "x": 71,
+      "y": 112
+    },
+    "camera_x": 205,
+    "distance": 2160,
+    "fixed_initial_art_phase": true,
+    "name": "stage_6_distance_2160",
+    "stage": 5
+  }
+]

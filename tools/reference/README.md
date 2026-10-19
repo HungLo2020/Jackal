@@ -39,7 +39,7 @@ builds and tests use the checked-in PNG/JSON/WAV outputs directly.
 | Coverage | Exporters |
 | --- | --- |
 | Mission map, deployment, ending and stage transitions | `export_cinematics.py`, `export_victory.py` |
-| Stage palettes, headquarters gate/collapse and river animation | `export_palettes.py`, `export_gate_art.py`, `export_hq_effects.py`, `export_river_art.py` |
+| Stage palettes, headquarters gate/collapse and river animation | `export_palettes.py`, `export_gate_art.py`, `export_hq_effects.py`, `export_river_art.py`, `export_stage_three_water.py`, `export_palette_timing.py` |
 | Camera, jeep movement, river current and weapons | `export_movement.py`, `export_current.py`, `export_player_weapons.py` |
 | Enemy states, projectiles and deaths | `export_enemy_sequences.py`, `export_enemy_projectiles.py`, `export_enemy_deaths.py`, `export_contact_deaths.py` |
 | Co-op targeting | `export_cooperative_enemies.py`, `export_cooperative_projectiles.py` |
@@ -53,3 +53,34 @@ workspaces. Fixtures under `tests/fixtures/` record original outputs, while test
 exercise the new Rust state machines against those outputs. Controlled traces
 establish the covered state transitions; they are not a substitute for integrated
 playthrough and rendering comparisons.
+
+`export_stage_three_water.py` captures the original stage entry, alternating
+six-chunk water uploads, and interruption by the later palette upload. The runtime
+uses a compact manifest and deduplicated PNG atlases; the 499-frame register and
+pixel evidence lives separately in `tests/fixtures/stage_three_water.json`.
+
+`export_palette_timing.py` records stage-three loader counters, natural palette
+requests and displayed palette bytes, plus isolated queue-capacity boundary
+cases. This independently checks the cycle period and one-frame display delay.
+
+`export_palette_cycles.py --check` reproduces native PNG color swatches for all
+six timed background palette animations and the complete scrolling reference
+trace. `export_palette_timing.py --check` independently verifies stage entry,
+queue gates, the 33-update request cadence, and delivery one update later.
+The native scheduler retains a pending tile-row upload, so a row transfer also
+postpones palette requests when scrolling stops immediately after a boundary.
+The source palette bands have four distinct colors, checked when loading, so
+composition with the early river and water PNG animations preserves each tile's
+original color indices. Sprite colors and the universal background color are
+validated unchanged. Scripted palette preparation takes over the palette and
+freezes timed requests on the following update.
+
+The recovered row-upload budget covers normal scrolling. Actor-generated render
+commands (for example, simultaneous destruction patches) are not yet accumulated
+in this shared budget; the scheduler accepts an additional byte budget and tests
+the original queue threshold explicitly. This is a remaining contention-timing
+boundary, rather than an omitted palette animation.
+
+`export_water_moving.py` captures 2,368 playable updates while scrolling through
+stage three. Its test checks shared map-upload contention, alternating water
+patterns, and delivered palette-cycle colors together against the original.

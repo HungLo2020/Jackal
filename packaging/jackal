@@ -1,0 +1,6 @@
+#!/bin/sh
+# Basalt and standalone installs use the same relocatable application tree.
+set -eu
+app_dir=$(CDPATH= cd -- "$(dirname -- "$(readlink -f -- "$0")")/.." && pwd)
+export LD_LIBRARY_PATH="$app_dir/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+exec "$app_dir/bin/jackal-native" "$@"

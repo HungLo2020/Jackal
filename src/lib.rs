@@ -50,3 +50,7 @@ pub mod environment;
 pub mod boss_controller;
 
 pub mod river_art;
+
+pub mod stage_three_water;
+
+pub mod palette_cycle;

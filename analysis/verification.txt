@@ -62,3 +62,59 @@ Destruction visual regression fixes:
 - Runtime assets are PNG/JSON/WAV; no ROM, banked binary or translated instruction
   dispatcher is used by cargo run. Optional reference tools remain separate.
 - Fidelity evidence and remaining validation boundaries: analysis/fidelity-audit.md.
+
+2026-10-19 — scrolled alignment and scenery regression fixes
+- Corrected all six map exports: 30 streamed tile rows per source page, with
+  matching collision/palette rows. Turret bases and actors no longer accumulate
+  a 16-pixel offset per page. Original bottom event entry Y=239 restored.
+- Corrected sprite palette composition; restored stage-three water animation
+  and timed scenery palette cycles in all six stages with native PNG/JSON assets.
+- cargo test --all-targets: PASS, 144 tests, zero failures.
+- cargo fmt --all -- --check: PASS.
+- cargo clippy --all-targets -- -D warnings: PASS.
+- git diff --check: PASS. Git index empty; all changes unstaged.
+- Final native CLI smoke runs: all six stages complete 1,200 ticks, exit 0,
+  state Playing, with --mute.
+- New geometry fixtures: 54 scrolled backgrounds and 27 gun/turret composites,
+  exact pixels over rows 0–231; actual native stationary-turret spawn checked.
+  Stage-one gun/base placement also visually inspected against reference PNG.
+- Independent scenery checks: 499 stationary water frames, 2,368 scrolling
+  water/palette frames, six full scrolling palette traces, queue gates, loading,
+  pause, and stopping at the palette-preparation trigger.
+- Reproducibility checks PASS: export_scene_alignment.py, export_stage_three_water.py,
+  export_water_moving.py, export_palette_cycles.py, export_palette_timing.py --check.
+- The original bottom eight-row streaming strip is outside static geometry
+  comparisons. Actor-generated background patch queue contention remains an
+  explicit timing boundary in analysis/fidelity-audit.md; normal map-transfer
+  contention is implemented and checked. These tests do not claim complete
+  parity for every arbitrary-input playthrough or original hardware timing.
+
+2026-10-19 — Linux release packaging and Basalt standard 1
+- Asset discovery now honors BASALT_APP_DIR/BASALT_GAME_DIR, then the installed
+  executable's app directory; Cargo builds retain source asset discovery.
+- cargo test --all-targets --locked: PASS, 146 tests (including two path tests).
+- cargo clippy --locked --all-targets -- -D warnings: PASS; cargo fmt check: PASS.
+- Python release tests: PASS, 11 tests covering archive safety/modes/digests and
+  first/rolling publication, stale commits, corrupt artifacts, wrong commits,
+  and upload failures. GitHub calls were mocked; nothing was published.
+- actionlint 1.7.12: PASS for .github/workflows/release.yml.
+- Built actual Linux x64 ZIP using Rust 1.99.1 on Ubuntu 22.04 as UID 1000.
+  Packaged binary and 15 bundled desktop libraries require at most glibc 2.35.
+  731 files validated against the internal manifest; ZIP SHA-256 sidecar matches.
+- Original cover scan from LaunchBox fitted to 900x1200 RGB JPEG (331,437 bytes);
+  native jeep icon is 512x512 RGBA with transparency. Both ship in app/basalt,
+  along with provenance. Native assets and library/dependency notices included.
+- Final extraction tests PASS as an ordinary user, with the source mount read-only
+  and Docker networking disabled: paths containing spaces, unrelated cwd, direct
+  ELF and launcher starts, Basalt variables, all six stages for 1,200 ticks each,
+  preserved user-data sentinel, unchanged read-only app, no writes to isolated HOME.
+- Real no-argument window launch and Escape exit PASS under Xvfb. CI has no audio
+  device; unavailable audio did not prevent startup or normal status-0 exit.
+  The test explicitly focuses the window and holds Escape across polling frames.
+- Local Basalt resources/games/jackal.json migrated to schema 2 / standard 1.
+  Basalt bundled-catalog validation PASS; basalt-cli catalog lists Jackal.
+  Only that catalog file changed in Basalt; its index remains empty.
+- Jackal index remains empty. No commits, pushes, remote releases or workflow
+  dispatches made. Publishing and the cover URL activate after a main-branch push;
+  an end-to-end Basalt install from the first public release remains pending.
+- Local artifact: dist/Jackal-latest-linux-x64.zip (ignored build output).

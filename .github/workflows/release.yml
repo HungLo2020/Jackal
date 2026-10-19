@@ -1,0 +1,77 @@
+name: Linux checks and rolling release
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 30
+    concurrency:
+      group: jackal-build-${{ github.event_name }}-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - name: Install build and package-test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends libasound2-dev libxcursor-dev libwayland-dev libxkbcommon-dev python3-pil binutils xvfb xauth xdotool
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec
+        with:
+          toolchain: 1.99.1
+          components: rustfmt, clippy
+      - name: Check source and packaging
+        run: |
+          cargo fmt --all -- --check
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo test --locked --all-targets
+          python3 -m unittest discover -s tools/release -p 'test_*.py'
+      - name: Build and package
+        env:
+          BUILD_COMMIT: ${{ github.sha }}
+        run: |
+          cargo build --locked --release
+          python3 tools/release/package.py --commit "$BUILD_COMMIT" --max-glibc 2.35
+      - name: Test extracted release, including the real window
+        run: xvfb-run -a python3 tools/release/verify.py dist/Jackal-latest-linux-x64.zip --smoke --gui
+      - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: jackal-linux-x64
+          path: dist/Jackal-latest-linux-x64.zip*
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: build
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    # Never cancel a publisher halfway through replacing the two release assets.
+    concurrency:
+      group: jackal-publish-latest
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6
+        with:
+          name: jackal-linux-x64
+          path: dist
+      - name: Replace rolling latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          BUILD_COMMIT: ${{ github.sha }}
+        run: python3 tools/release/publish.py --commit "$BUILD_COMMIT"

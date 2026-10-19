@@ -142,6 +142,8 @@ pub struct Assets {
     pub boss_patches: Vec<crate::world_art::BossTilePatch>,
     pub hud: crate::hud::Hud,
     pub river_art: crate::river_art::RiverArt,
+    pub palette_cycle_art: crate::palette_cycle::PaletteCycleArt,
+    pub stage_three_water_art: crate::stage_three_water::StageThreeWaterArt,
     pub headquarters_art: crate::hq_effects::CollapseArt,
     pub scoreboard: crate::victory_scene::VictoryScoreboard,
     pub cinematics: crate::cinematic::Cinematics,
@@ -156,7 +158,15 @@ pub struct Assets {
 }
 impl Assets {
     pub fn default_directory() -> PathBuf {
-        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("assets")
+        asset_directory(
+            std::env::var_os("BASALT_APP_DIR")
+                .map(PathBuf::from)
+                .as_deref(),
+            std::env::var_os("BASALT_GAME_DIR")
+                .map(PathBuf::from)
+                .as_deref(),
+            std::env::current_exe().ok().as_deref(),
+        )
     }
     pub fn load(root: &Path) -> Result<Self, Box<dyn Error>> {
         let mut levels = Vec::new();
@@ -327,6 +337,8 @@ impl Assets {
             boss_patches,
             hud: crate::hud::Hud::load(root)?,
             river_art: crate::river_art::RiverArt::load(root)?,
+            palette_cycle_art: crate::palette_cycle::PaletteCycleArt::load(root)?,
+            stage_three_water_art: crate::stage_three_water::StageThreeWaterArt::load(root)?,
             headquarters_art: crate::hq_effects::CollapseArt::load(root)?,
             cinematics: crate::cinematic::Cinematics::load(root)?,
             scoreboard: crate::victory_scene::VictoryScoreboard::load(root)?,
@@ -375,6 +387,25 @@ fn read_json<T: serde::de::DeserializeOwned>(path: &Path) -> Result<T, Box<dyn E
     let data = fs::read(path).map_err(|e| format!("{}: {e}", path.display()))?;
     serde_json::from_slice(&data).map_err(|e| format!("{}: {e}", path.display()).into())
 }
+/// An installed executable must never fall back to a build-machine checkout,
+/// even when its packaged assets are missing. Cargo builds retain source assets.
+fn asset_directory(app: Option<&Path>, install: Option<&Path>, exe: Option<&Path>) -> PathBuf {
+    if let Some(app) = app.filter(|p| !p.as_os_str().is_empty()) {
+        return app.join("assets");
+    }
+    if let Some(install) = install.filter(|p| !p.as_os_str().is_empty()) {
+        return install.join("app/assets");
+    }
+    if let Some(bin) = exe.and_then(Path::parent) {
+        if bin.file_name() == Some(std::ffi::OsStr::new("bin")) {
+            if let Some(app) = bin.parent() {
+                return app.join("assets");
+            }
+        }
+    }
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("assets")
+}
+
 fn load_png(path: &Path) -> Result<Texture, Box<dyn Error>> {
     let image = image::open(path)
         .map_err(|e| format!("{}: {e}", path.display()))?
@@ -385,4 +416,48 @@ fn load_png(path: &Path) -> Result<Texture, Box<dyn Error>> {
         image.into_raw(),
     )
     .map_err(Into::into)
+}
+
+#[cfg(test)]
+mod path_tests {
+    use super::*;
+
+    #[test]
+    fn installed_assets_follow_basalt_or_the_executable_without_checkout_fallback() {
+        let exe = Path::new("/a moved library/Jackal/app/bin/jackal-native");
+        assert_eq!(
+            asset_directory(None, None, Some(exe)),
+            Path::new("/a moved library/Jackal/app/assets")
+        );
+        assert_eq!(
+            asset_directory(None, Some(Path::new("/library/Jackal")), Some(exe)),
+            Path::new("/library/Jackal/app/assets")
+        );
+        assert_eq!(
+            asset_directory(
+                Some(Path::new("/custom/app")),
+                Some(Path::new("/library/Jackal")),
+                Some(exe)
+            ),
+            Path::new("/custom/app/assets")
+        );
+        assert_eq!(
+            asset_directory(Some(Path::new("")), None, Some(exe)),
+            Path::new("/a moved library/Jackal/app/assets")
+        );
+    }
+
+    #[test]
+    fn cargo_runs_and_tests_keep_using_source_assets() {
+        for executable in [
+            "/checkout/target/debug/jackal-native",
+            "/checkout/target/release/jackal-native",
+            "/checkout/target/debug/deps/test-binary",
+        ] {
+            assert_eq!(
+                asset_directory(None, None, Some(Path::new(executable))),
+                Path::new(env!("CARGO_MANIFEST_DIR")).join("assets")
+            );
+        }
+    }
 }

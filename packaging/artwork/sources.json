@@ -1,0 +1,13 @@
+{
+  "cover_page": "https://gamesdb.launchbox-app.com/games/images/336-jackal",
+  "cover_original": "https://images.launchbox-app.com/93ca17a0-65dd-4bde-bf73-1404c68c8c76.jpg",
+  "source_sha256": "98aa6f7736616d60b5cf51ff46e8433fc5352e2b5bdf8699c97bc2dcf77002a3",
+  "source_dimensions": [
+    1534,
+    2100
+  ],
+  "cover_transform": "Center crop to 3:4; Lanczos resize to 900x1200; RGB JPEG quality 90",
+  "icon_source": "assets/textures/stage_01_sprites.png, sprites.json frame 1",
+  "icon_transform": "Composite original jeep; nearest-neighbor scale; transparent 512x512 canvas",
+  "credit": "Original Jackal game and artwork: Konami. Cover scan hosted by LaunchBox Games Database."
+}

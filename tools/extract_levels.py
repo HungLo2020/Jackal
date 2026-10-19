@@ -43,6 +43,8 @@ def extract(prg):
    for my in range(8):
     mids=list(data(b,pages+page*128+my*16,16))
     for sy in range(4):
+     # CD88-CD90 restarts every source page at subrow 2: 30 streamed rows.
+     if my == 0 and sy < 2:continue
      row=[];prow=[]
      for mid in mids:
       db=4 if mid<cutoff else b
@@ -64,7 +66,7 @@ def extract(prg):
     x,t=data(6,a+offset+1,2);kind=KINDS.get(t&127,f'entity_{t&127:02x}')
     events.append({'distance':float(page*240+trigger),'x':float((x&127)*4),'kind':kind,'source_type':t&127,'priority_spawn':bool(t&128),'raw_source_type':t,'from_bottom':bool(x&128),'odd_difficulty_only':bool(trigger&1),'source_page':page})
     offset+=3
-  stages.append({'name':NAMES[s],'width_tiles':64,'height_tiles':len(rows),'tile_size':8,'tiles':sum(rows,[]),'palettes':sum(prows,[]),'collision':sum(crows,[]),'events':events,'commands':commands,'boss':{'kind':BOSSES[s],'distance':float(11*240+238 if s<5 else 13*240+14)},'source':{'map_sequence':order,'collision_thresholds':thresholds,'world_scroll_per_event_page':240,'map_page_height':256,'source_rows_reversed':True},'initial_camera_from_bottom':256,'start_camera_x':[0,128,68,0,144,205][s]})
+  stages.append({'name':NAMES[s],'width_tiles':64,'height_tiles':len(rows),'tile_size':8,'tiles':sum(rows,[]),'palettes':sum(prows,[]),'collision':sum(crows,[]),'events':events,'commands':commands,'boss':{'kind':BOSSES[s],'distance':float(11*240+238 if s<5 else 13*240+14)},'source':{'map_sequence':order,'collision_thresholds':thresholds,'world_scroll_per_event_page':240,'map_page_height':256,'streamed_page_height':240,'skipped_source_rows_per_page':2,'source_rows_reversed':True},'initial_camera_from_bottom':240,'start_camera_x':[0,128,68,0,144,205][s]})
  return stages
 
 def extract_sprites(prg):

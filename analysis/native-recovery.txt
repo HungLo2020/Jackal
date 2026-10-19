@@ -18,10 +18,13 @@ subtracting destination nametable address by32. Therefore logical source tile ro
 are reversed to produce top-to-bottom world image. Tile internal pixels not flipped.
 Palette source subrows0/1 use attr high nibble, subrows2/3 low nibble; left half low
 2bits of nibble, right half high2bits. This follows CF48 masks and is static-derived.
-Map width512px, first5 heights3328, final3584. Preserve final sequence entry; it is
+Correction (2026-10-19): CD88-CD90 resets subrow4D to2 on EVERY page,
+so source rows0/1 are omitted from each 256px page. Each streams240px.
+Map width512px, first5 heights3120, final3360. Preserve final sequence entry; it is
 streamed into final boss viewport even when identical to preceding page.
 Initial source row2 writes to nametable tile row29 (y232), yielding native camera
-world_y=map_height-256-world_scroll. Need visual validation against reference capture.
+world_y=map_height-240-world_scroll after removing the skipped source rows.
+The former 256px export accumulated16px background/event drift per page.
 Collision classes are computed from tile number and six stage thresholds at CFBE:
 0 below a;1 [a,b);2 [b,c);0 [c,d);1 [d,e);2 [e,f);3 >=f.
 Movement normally blocks nonzero classes. Stage index3 permits class3 but halves
@@ -126,6 +129,8 @@ Updated semantic names/families accordingly. Sprites12/29/2D/2E/43 include maske
 background/composite elements; their isolated frame is not sufficient for full art.
 Contact sheets saved /tmp/actor-contact.png and /tmp/actor-stages.png (review artifacts).
 Parent verified map crop98.24% against stage1 reference framebuffer, remaining
-pixels sprites/HUD. Camera initial Y=map_height-256. Gameplay starts original43=1,
+pixels sprites/HUD. The initial crop alone did not expose the extra rows per page.
+Corrected camera initial Y=map_height-240 (see 2026-10-19 correction above).
+Gameplay starts original43=1,
 44=0, so event distance=240+native_scrolled_pixels; boss scroll=event_distance-240.
 Passenger54/55 raw binary count, no established capacity cap. Rescued60/61 BCD.

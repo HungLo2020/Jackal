@@ -34,7 +34,7 @@ fn all_six_stages_resolve_their_original_events_and_artwork() {
     let original_event_counts = [74, 107, 133, 92, 138, 143];
     for (i, l) in a.levels.iter().enumerate() {
         assert_eq!(l.width_tiles, 64);
-        assert_eq!(l.height_tiles, if i == 5 { 448 } else { 416 });
+        assert_eq!(l.height_tiles, if i == 5 { 420 } else { 390 });
         assert_eq!(l.events.len(), original_event_counts[i]);
         for event in &l.events {
             let definition = a.entity(event.source_type);
@@ -78,7 +78,7 @@ fn all_stage_map_crops_match_original_start_frames() {
             8,
             Camera {
                 x,
-                y: level.height() - 256.,
+                y: level.start_camera_y(),
             },
             None,
         );
@@ -120,7 +120,7 @@ struct Motion {
 #[test]
 fn player_positions_follow_original_controller_recording() {
     let level = &assets().levels[0];
-    let camera_y = level.height() - 256.;
+    let camera_y = level.start_camera_y();
     let samples: Vec<Motion> =
         serde_json::from_slice(&std::fs::read(fixture("player_motion.json")).unwrap()).unwrap();
     assert_eq!(samples.len(), 80);

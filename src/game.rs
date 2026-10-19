@@ -80,6 +80,8 @@ pub struct Game {
     pub pickups: Vec<Pickup>,
     pub mines: Vec<crate::mine::LandMine>,
     current_zones: Vec<CurrentZone>,
+    pub palette_cycle: crate::palette_cycle::PaletteCycle,
+    pub stage_three_water: crate::stage_three_water::StageThreeWater,
     river_phase: Option<u8>,
     river_phase_pending: Option<(u8, u64)>,
     pub environment_actors: Vec<crate::environment::EnvironmentActor>,
@@ -143,6 +145,8 @@ impl Game {
             pickups: Vec::new(),
             mines: Vec::new(),
             current_zones: Vec::new(),
+            palette_cycle: crate::palette_cycle::PaletteCycle::default(),
+            stage_three_water: crate::stage_three_water::StageThreeWater::default(),
             river_phase: None,
             river_phase_pending: None,
             environment_actors: Vec::new(),
@@ -226,6 +230,8 @@ impl Game {
         self.pickups.clear();
         self.mines.clear();
         self.current_zones.clear();
+        self.stage_three_water = crate::stage_three_water::StageThreeWater::default();
+        self.palette_cycle = crate::palette_cycle::PaletteCycle::default();
         self.river_phase = None;
         self.river_phase_pending = None;
         self.background_objects.clear();
@@ -666,6 +672,13 @@ impl Game {
             .retain(|p| p.position.y < self.camera.y + 280.);
         self.pickups.retain(|p| p.position.y < self.camera.y + 280.);
         self.update_river_animation();
+        let palette_distance = (240. + level.start_camera_y() - self.camera.y).max(0.) as u32;
+        let graphics_queue = self.palette_cycle.update(self.stage, palette_distance, 0);
+        if self.stage == 2 {
+            let busy = self.texture_phase_distance >= 2739.
+                && self.tick.saturating_sub(self.texture_phase_tick) < 26;
+            self.stage_three_water.tick_with_queue(busy, graphics_queue);
+        }
         self.current_zones
             .retain(|z| z.position.y < self.camera.y + 320.);
         self.reconcile_actor_pool();
@@ -711,6 +724,9 @@ impl Game {
             if level.commands[self.command_cursor].command == "forced_scroll" {
                 self.forced_scroll = true;
             } else {
+                if level.commands[self.command_cursor].command == "palette_prepare" {
+                    self.palette_cycle.prepare_palette();
+                }
                 self.texture_phase_tick = self.tick;
                 self.texture_phase_distance = level.commands[self.command_cursor].distance;
             }
@@ -727,7 +743,7 @@ impl Game {
             let position = Vec2::new(
                 event.x,
                 level.start_camera_y() - (event.distance - 240.)
-                    + if event.from_bottom { 224. } else { 0. },
+                    + if event.from_bottom { 239. } else { 0. },
             );
             let Some(handle) =
                 self.allocate_actor(event.source_type, event.priority_spawn, position, true)
@@ -1448,6 +1464,36 @@ impl Game {
                     self.events
                         .push(GameEvent::Effect(SoundEffect::PlayerDeath));
                 }
+            }
+        }
+    }
+}
+
+#[cfg(test)]
+mod spawn_position_tests {
+    use super::*;
+
+    #[test]
+    fn event_entries_match_original_top_and_bottom_coordinates() {
+        // Fixed bank F17A-F18C sets event Y to 0 or $EF, independent of page.
+        let mut assets = Assets::load(&Assets::default_directory()).unwrap();
+        let mut event = assets.levels[0].events[0].clone();
+        event.source_type = 12;
+        event.x = 128.;
+        event.odd_difficulty_only = false;
+        for distance in [240., 480., 1040., 1920.] {
+            for (from_bottom, expected_y) in [(false, 0.), (true, 239.)] {
+                event.distance = distance;
+                event.from_bottom = from_bottom;
+                assets.levels[0].events = vec![event.clone()];
+                assets.levels[0].commands.clear();
+                let mut game = Game::new();
+                game.stage = 0;
+                game.camera.y = assets.levels[0].start_camera_y() - (distance - 240.);
+                game.spawn_events(&assets);
+                assert_eq!(game.enemies.len(), 1);
+                assert_eq!(game.enemies[0].position.y - game.camera.y, expected_y);
+                assert_eq!(game.enemies[0].position.x, 128.);
             }
         }
     }

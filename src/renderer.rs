@@ -409,6 +409,7 @@ pub struct Renderer {
     phase_age: u64,
     headquarters_tick: Option<u16>,
     river_frame: Option<(bool, u64)>,
+    stage_three_water_frame: Option<(bool, (u8, usize))>,
     headquarters_final: Option<u16>,
     headquarters_building: Option<(Option<u8>, Option<u8>, u8, u16)>,
 }
@@ -427,6 +428,7 @@ impl Renderer {
             phase_age: 0,
             headquarters_tick: None,
             river_frame: None,
+            stage_three_water_frame: None,
             headquarters_final: None,
             headquarters_building: None,
         }
@@ -451,7 +453,19 @@ impl Renderer {
         if let Some((palette, age)) = self.river_frame {
             return assets.river_art.textures(palette, age);
         }
-        assets.textures(stage, self.progress, self.phase_age)
+        // The reference palette-change export also contains subsequent water
+        // uploads. Stop that captured sequence after the palette transfer;
+        // the native water scheduler owns the following animation.
+        let age = if stage == 2 && self.progress >= 2739. {
+            self.phase_age.min(26)
+        } else {
+            self.phase_age
+        };
+        let textures = assets.textures(stage, self.progress, age);
+        if let Some((late, frame)) = self.stage_three_water_frame {
+            return (assets.stage_three_water_art.tiles(late, frame), textures.1);
+        }
+        textures
     }
 
     pub fn render(&mut self, game: &crate::game::Game, assets: &crate::assets::Assets) -> &[u32] {
@@ -493,6 +507,13 @@ impl Renderer {
         let level = &assets.levels[stage];
         self.progress = game.texture_phase_distance;
         self.river_frame = game.river_animation_frame();
+        self.stage_three_water_frame = if game.stage == 2 {
+            game.stage_three_water
+                .frame()
+                .map(|frame| (game.texture_phase_distance >= 2739., frame))
+        } else {
+            None
+        };
         self.headquarters_tick = game
             .boss
             .as_ref()
@@ -506,7 +527,13 @@ impl Renderer {
             .as_ref()
             .and_then(|b| b.headquarters_building_graphics());
         self.phase_age = game.tick.saturating_sub(game.texture_phase_tick);
-        let atlas = self.world_textures(assets, stage).0;
+        let source_atlas = self.world_textures(assets, stage).0;
+        let cycled_atlas = game
+            .palette_cycle
+            .visible()
+            .filter(|_| game.texture_phase_distance == 0.)
+            .map(|phase| assets.palette_cycle_art.compose(source_atlas, stage, phase));
+        let atlas = cycled_atlas.as_ref().unwrap_or(source_atlas);
         // Palette variants occupy consecutive groups of 256 atlas tiles.
         let first_x = ((game.camera.x / level.tile_size as f32).floor() as i32).max(0) as usize;
         let first_y = ((game.camera.y / level.tile_size as f32).floor() as i32).max(0) as usize;
@@ -597,7 +624,7 @@ impl Renderer {
                         let patch = &assets.boss_patches[usize::from(id)];
                         let x0 = ((part.position[0] + patch.offset_x as f32) / 8.).floor() as i32;
                         let y0 = ((part.position[1] + patch.offset_y as f32) / 8.).floor() as i32;
-                        let atlas = self.world_textures(assets, stage).0;
+                        // Terrain and boss patches share the same animated background atlas.
                         for y in 0..patch.height {
                             for x in 0..patch.width {
                                 let (xx, yy) = (x0 + x as i32, y0 + y as i32);
@@ -922,7 +949,7 @@ impl Renderer {
                 if !(0..256).contains(&x) || !(0..256).contains(&y) || parts.len() == 64 {
                     continue;
                 }
-                let palette = usize::from(sprite.palette.unwrap_or(part.palette));
+                let palette = usize::from(part.palette | sprite.palette.unwrap_or(0));
                 let tile = usize::from(part.tile) + palette * 256;
                 parts.push(ScenePart {
                     priority: scene_part_priority(rotation, parts.len()),
@@ -998,7 +1025,7 @@ impl Renderer {
         let columns = atlas.width / 8;
         let (origin_x, origin_y) = camera.world_to_screen(x, y);
         for part in frame.parts.iter().rev() {
-            let palette = palette_override.unwrap_or(part.palette) as usize;
+            let palette = (part.palette | palette_override.unwrap_or(0)) as usize;
             let tile = part.tile as usize + palette * 256;
             let source = Rect::new(
                 (tile % columns * 8) as i32,
@@ -1312,6 +1339,79 @@ mod tests {
                 expected.canvas.pixels(),
                 "native projectile frame{frame}, palette{palette}"
             );
+        }
+    }
+
+    #[test]
+    fn native_actor_palette_preserves_metasprite_palette_bits() {
+        // Original bank1:81B3..81B9 XORs flips, then ORs actor attributes.
+        // Source52's tick8 has frame142/actorpalette0; source02 flashes
+        // frame19 with actorpalette2. Their descriptor palettes are3 and1.
+        let assets =
+            crate::assets::Assets::load(&crate::assets::Assets::default_directory()).unwrap();
+        let game = crate::game::Game::new();
+        for (frame, actor_palette, tile) in [(142, 0, 169), (19, 2, 85)] {
+            let mut expected = Renderer::new();
+            let atlas = expected.world_textures(&assets, 0).1;
+            let columns = atlas.width / 8;
+            let index = tile + 3 * 256;
+            expected.canvas.draw_region(
+                atlas,
+                Rect::new(
+                    (index % columns * 8) as i32,
+                    (index / columns * 16) as i32,
+                    8,
+                    16,
+                ),
+                Rect::new(76, 73, 8, 16),
+                false,
+                false,
+            );
+            for scene_path in [false, true] {
+                let mut actual = Renderer::new();
+                if scene_path {
+                    actual.draw_scene(
+                        &assets,
+                        &game,
+                        0,
+                        vec![SceneSprite::new(
+                            0,
+                            frame,
+                            80.,
+                            80.,
+                            Camera::default(),
+                            Some(actor_palette),
+                            false,
+                            false,
+                        )],
+                    );
+                } else {
+                    actual.sprite(
+                        &assets,
+                        0,
+                        frame,
+                        80.,
+                        80.,
+                        Camera::default(),
+                        Some(actor_palette),
+                        false,
+                        false,
+                    );
+                }
+                let mut opaque = 0;
+                for y in 73..89 {
+                    for x in 76..84 {
+                        let index = y * WIDTH + x;
+                        assert_eq!(
+                            actual.canvas.pixels()[index],
+                            expected.canvas.pixels()[index],
+                            "frame{frame} scene={scene_path} pixel({x},{y})"
+                        );
+                        opaque += usize::from(expected.canvas.pixels()[index] != 0);
+                    }
+                }
+                assert!(opaque > 0);
+            }
         }
     }
 

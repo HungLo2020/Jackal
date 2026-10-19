@@ -9,6 +9,14 @@ WAV assets. No ROM, emulator, generated instruction dispatcher, banked data imag
 Python, or asset extraction step is needed to build or play. Linux builds need
 the desktop/ALSA development libraries used by minifb and rodio.
 
+Linux releases use Basalt's standard layout. Download
+`Jackal-latest-linux-x64.zip` from the repository's **latest** release, extract it,
+and run `app/bin/jackal`; the package includes assets, artwork and runtime client
+libraries. The rolling release is replaced after successful pushes to `main`.
+See [release packaging and Basalt compatibility](packaging/README.md) for the
+layout, system requirements, validation and local build commands. The workflow
+and pre-install cover URL become active when these files are committed and pushed.
+
 This is a playable six-stage reconstruction with two-player controls, prisoners,
 weapon upgrades, destructible terrain, bosses, continues, and an ending loop.
 The fidelity correction is in progress: original presentation and recovered actor
@@ -63,6 +71,10 @@ coordinates and named Rust types, with no emulated registers or memory addresses
   palette and tile streaming changes, including intermediate transition atlases.
 - `assets/boss_patches.json`: original background tile compositions and collision for boss states.
 - `assets/textures/hq_*` and `assets/textures/river_*`: original headquarters transitions, collapse and animated river artwork.
+- `assets/textures/palette_cycles/`: PNG color swatches and JSON definitions for
+  the timed scenery color cycles in all six stages.
+- `assets/textures/stage_three_water/`: PNG water animation phases and a JSON manifest;
+  the native scheduler preserves the original delay and partial graphics updates.
 - `assets/textures/`: six background atlases, six transparent sprite atlases and
   the title image, all PNG. Each background atlas has four 256-tile palette rows
   (128×512 pixels); each sprite atlas has four 256-frame palette rows
@@ -105,6 +117,8 @@ cargo run -- --stage 6 --mute
 Tests compare original reference pixels for helicopter deployment, scene transitions,
 ending and HUD; thousands of ticks of camera, enemy, boss and projectile behavior;
 prisoner states; all six initial maps; destruction; campaign flow and asset validation.
+Scrolled-map tests additionally compare 54 scenes and 27 gun/turret placements across
+all six stages, using exact pixels in the stable viewport and an actual native spawn.
 Fixtures are produced by isolated historical execution, not copied from the new
 implementation. Campaign tests accelerate progress using controlled damage and
 camera placement; they do not establish an unassisted playthrough of every stage.
@@ -118,8 +132,10 @@ grenades after tick 240. It is a smoke-test input script, not an autoplayer.
 Maps, sprite definitions, placements, health/armor/score tables, selected movement
 and weapon rules, and sound sequences were recovered from the original program.
 Reference fixtures come from the previous native static translation, not captures
-from original hardware. The background comparisons exclude foreground objects
-and the HUD; movement permits one pixel of the reference's cosmetic bob.
+from original hardware. Initial background comparisons exclude foreground objects
+and the HUD. Scrolled geometry comparisons include isolated original guns/turrets,
+fix the art phase, and exclude the bottom eight-row streaming strip; animation has
+separate timing/artwork tests. Movement permits one pixel of cosmetic bob.
 
 The new implementation replaces the original instruction translation entirely.
 Presentation, camera, weapons and recovered actors have dedicated reference tests.

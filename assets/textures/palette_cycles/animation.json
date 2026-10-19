@@ -1,0 +1,44 @@
+[
+  {
+    "page_range": [
+      9,
+      11
+    ],
+    "swatches": "textures/palette_cycles/stage_01.png"
+  },
+  {
+    "page_range": [
+      7,
+      9
+    ],
+    "swatches": "textures/palette_cycles/stage_02.png"
+  },
+  {
+    "page_range": [
+      8,
+      10
+    ],
+    "swatches": "textures/palette_cycles/stage_03.png"
+  },
+  {
+    "page_range": [
+      9,
+      11
+    ],
+    "swatches": "textures/palette_cycles/stage_04.png"
+  },
+  {
+    "page_range": [
+      9,
+      11
+    ],
+    "swatches": "textures/palette_cycles/stage_05.png"
+  },
+  {
+    "page_range": [
+      4,
+      6
+    ],
+    "swatches": "textures/palette_cycles/stage_06.png"
+  }
+]
