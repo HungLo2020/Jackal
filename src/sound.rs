@@ -65,7 +65,13 @@ impl Sound {
     pub fn new(enabled: bool) -> Self {
         Self {
             output: if enabled {
-                OutputStream::try_default().ok()
+                match OutputStream::try_default() {
+                    Ok(output) => Some(output),
+                    Err(error) => {
+                        eprintln!("Audio unavailable: {error}. Continuing without sound.");
+                        None
+                    }
+                }
             } else {
                 None
             },

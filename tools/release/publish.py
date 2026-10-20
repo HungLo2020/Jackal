@@ -41,7 +41,9 @@ def publish(directory, commit):
         notes.write_text(
             f"Rolling Linux x64 build from `{commit}`.\n\n"
             "Download the ZIP and extract it, then run `app/bin/jackal`, or install through Basalt.\n"
-            "Requires an x86-64 Linux desktop with glibc 2.35 or newer. No ROM, Rust, or emulator is needed.\n\n"
+            "Requires an x86-64 Linux desktop with glibc 2.35 or newer and the system ALSA runtime "
+            "(libasound.so.2) with its desktop audio plugins. No exact ALSA package version is required. "
+            "No ROM, Rust, or emulator is needed.\n\n"
             "The ZIP includes the game, native assets, runtime libraries, cover and icon. "
             "The SHA-256 checksum is attached separately. This release is replaced after successful main-branch pushes.\n"
         )

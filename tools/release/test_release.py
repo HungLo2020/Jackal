@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import shutil
 import stat
 import subprocess
 import tempfile
@@ -12,6 +13,7 @@ import zipfile
 
 import publish
 import verify
+import package
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -77,6 +79,81 @@ class ArchiveTests(unittest.TestCase):
         self.archive.with_suffix(".zip.sha256").write_text("wrong checksum")
         with self.assertRaisesRegex(ValueError, "checksum"):
             verify.validate(self.archive)
+
+    def test_rejects_bundled_alsa_and_audio_plugins(self):
+        for name in ("libasound.so.2", "libasound.so.2.0.0",
+                     "libasound_module_pcm_pipewire.so"):
+            with self.subTest(name=name):
+                self.make_archive(extra=(f"app/lib/{name}", False))
+                with self.assertRaisesRegex(ValueError, "must come from the host"):
+                    verify.validate(self.archive)
+
+
+class HostAudioTests(unittest.TestCase):
+    @unittest.skipUnless(shutil.which("cc"), "requires a C compiler for the ELF fixture")
+    def test_launcher_reports_missing_host_alsa(self):
+        with tempfile.TemporaryDirectory(prefix="jackal missing ALSA ") as temporary:
+            app = Path(temporary)
+            (app / "bin").mkdir()
+            (app / "lib").mkdir()
+            binary = app / "bin/jackal-native"
+            # Disable default library lookup only for this fixture to simulate
+            # a machine without ALSA, without changing the host installation.
+            subprocess.run(["cc", "-x", "c", "-", "-Wl,-z,nodefaultlib",
+                            "-Wl,--no-as-needed", "-l:libasound.so.2", "-o", str(binary)],
+                           input="int main(void) { return 0; }\n", text=True,
+                           capture_output=True, check=True)
+            for library in package.dependencies(Path("/bin/sh")):
+                if library.name == "libc.so.6":
+                    shutil.copyfile(library, app / "lib" / library.name)
+            launcher = app / "bin/jackal"
+            launcher.write_bytes((ROOT / "packaging/jackal").read_bytes())
+            launcher.chmod(0o755)
+            env = {k: v for k, v in os.environ.items()
+                   if k not in {"LD_LIBRARY_PATH", "LD_PRELOAD", "LD_TRACE_LOADED_OBJECTS"}}
+            missing = subprocess.run([str(launcher), "--mute"], env=env,
+                                     capture_output=True, text=True)
+            self.assertEqual(missing.returncode, 1, missing.stderr)
+            self.assertIn("requires the system ALSA runtime", missing.stderr)
+            self.assertEqual(missing.stdout, "")
+
+    def test_transitive_alsa_dependency_is_not_bundled(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            app = root / "app"
+            (app / "lib").mkdir(parents=True)
+            binary = root / "jackal-native"
+            desktop = root / "libdesktop.so.1"
+            desktop.write_bytes(b"desktop library")
+            alsa = root / "libasound.so.2"
+            plugin = root / "libasound_module_pcm_pipewire.so"
+            dependencies = {binary: [desktop], desktop: [alsa, plugin]}
+            with patch.object(package, "DESKTOP_LIBRARIES", ()), \
+                    patch.object(package, "library_locations", return_value={}), \
+                    patch.object(package, "dependencies", side_effect=lambda p: dependencies[p]), \
+                    patch.object(package, "copy_library_license"):
+                copied = package.bundle_libraries(binary, app)
+            self.assertEqual(copied, [desktop.name])
+            self.assertEqual([p.name for p in (app / "lib").iterdir()], [desktop.name])
+
+    def test_launcher_forwards_arguments_after_loader_check(self):
+        with tempfile.TemporaryDirectory(prefix="jackal launcher ") as temporary:
+            app = Path(temporary)
+            (app / "bin").mkdir()
+            binary = app / "bin/jackal-native"
+            # Use an actual ELF so LD_TRACE_LOADED_OBJECTS exercises the loader.
+            shutil.copyfile("/bin/sh", binary)
+            binary.chmod(0o755)
+            launcher = app / "bin/jackal"
+            launcher.write_bytes((ROOT / "packaging/jackal").read_bytes())
+            launcher.chmod(0o755)
+            env = {k: v for k, v in os.environ.items() if k != "LD_TRACE_LOADED_OBJECTS"}
+            present = subprocess.run([str(launcher), "-c", 'printf "%s\\n" "$@"',
+                                      "test", "--assets", "a path with spaces"],
+                                     env=env,
+                                     capture_output=True, text=True)
+            self.assertEqual(present.returncode, 0, present.stderr)
+            self.assertEqual(present.stdout, "--assets\na path with spaces\n")
 
 
 class PublisherTests(unittest.TestCase):

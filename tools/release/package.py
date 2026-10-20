@@ -2,8 +2,9 @@
 """Build a relocatable Basalt ZIP from a Linux x64 release executable.
 
 Run on the oldest supported distribution (Ubuntu 22.04 in CI). Desktop client
-libraries, including dlopen dependencies, are bundled; glibc and device drivers
-belong to the host. No Python or Cargo is required to play the result.
+libraries, including dlopen dependencies, are bundled; glibc, ALSA and its audio
+plugins, and device drivers belong to the host. No Python or Cargo is required
+to play the result.
 """
 import argparse
 import hashlib
@@ -19,10 +20,12 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 DESKTOP_LIBRARIES = (
-    "libasound.so.2", "libX11.so.6", "libXcursor.so.1",
+    "libX11.so.6", "libXcursor.so.1",
     "libwayland-client.so.0", "libwayland-cursor.so.0", "libxkbcommon.so.0",
 )
-HOST_LIBRARY = re.compile(r"^(?:ld-linux.*|lib(?:c|m|dl|pthread|rt|resolv|util|nss_.*)\.so(?:\..*)?)$")
+# ALSA must stay matched to the host's dynamically loaded PipeWire/PulseAudio
+# plugins. Exclude it even when another bundled library depends on it.
+HOST_LIBRARY = re.compile(r"^(?:ld-linux.*|lib(?:c|m|dl|pthread|rt|resolv|util|nss_.*|asound|asound_module_.*)\.so(?:\..*)?)$")
 
 
 def run(*args):

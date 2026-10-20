@@ -22,6 +22,8 @@ def validate(archive):
         for info in zipped.infolist():
             path = PurePosixPath(info.filename)
             mode = info.external_attr >> 16
+            if path.name.startswith(("libasound.so", "libasound_module_")):
+                raise ValueError("ALSA and its plugins must come from the host, not the release")
             if (not path.parts or path.parts[0] != "app" or path.is_absolute()
                     or ".." in path.parts or "\\" in info.filename
                     or ".basalt" in path.parts or "data" in path.parts

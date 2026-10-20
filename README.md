@@ -12,7 +12,9 @@ the desktop/ALSA development libraries used by minifb and rodio.
 Linux releases use Basalt's standard layout. Download
 `Jackal-latest-linux-x64.zip` from the repository's **latest** release, extract it,
 and run `app/bin/jackal`; the package includes assets, artwork and runtime client
-libraries. The rolling release is replaced after successful pushes to `main`.
+libraries. Linux requires the host ALSA runtime (`libasound.so.2`) and its desktop
+audio plugins; these are deliberately not bundled. No exact ALSA package version
+is required. The rolling release is replaced after successful pushes to `main`.
 See [release packaging and Basalt compatibility](packaging/README.md) for the
 layout, system requirements, validation and local build commands. The workflow
 and pre-install cover URL become active when these files are committed and pushed.

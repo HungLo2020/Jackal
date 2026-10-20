@@ -3,4 +3,14 @@
 set -eu
 app_dir=$(CDPATH= cd -- "$(dirname -- "$(readlink -f -- "$0")")/.." && pwd)
 export LD_LIBRARY_PATH="$app_dir/lib${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
+# Ask the ELF loader directly; no ldd, Python or package-manager tool is needed.
+# A missing linked library prevents Rust (including --mute) from starting.
+libraries=$(LD_TRACE_LOADED_OBJECTS=1 "$app_dir/bin/jackal-native" 2>&1) || :
+case "$libraries" in
+    *"libasound.so.2 => not found"*)
+        echo "Jackal requires the system ALSA runtime (libasound.so.2)." >&2
+        echo "Install your distribution's ALSA library package (Debian/Ubuntu: libasound2 or libasound2t64; Fedora: alsa-lib)." >&2
+        exit 1
+        ;;
+esac
 exec "$app_dir/bin/jackal-native" "$@"
